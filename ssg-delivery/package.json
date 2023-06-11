@@ -6,8 +6,8 @@
   "author": "Dmitry White",
   "main": "n/a",
   "scripts": {
-    "setup": "node ./bin/setup.js",
-    "postinstall": "node ./bin/hello.js",
+    "postinstall": "node ./scripts/postInstall.js",
+    "setup": "node ./scripts/setup.js",
     "dev": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
@@ -36,7 +36,7 @@
     "gatsby-provision-contentful": "^0.0.5",
     "netlify-cli": "^10.0.0"
   },
-  "homepage": "https://github.com/Dmitry-White/Contentful-Playground.git#readme",
+  "homepage": "https://github.com/Dmitry-White/Contentful-Playground/blob/main/ssg-delivery/README.md",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Dmitry-White/Contentful-Playground.git"
