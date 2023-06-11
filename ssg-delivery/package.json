@@ -1,0 +1,53 @@
+{
+  "name": "ssg-delivery",
+  "description": "Contentful SSG Delivery",
+  "private": true,
+  "version": "0.0.1",
+  "author": "Dmitry White",
+  "main": "n/a",
+  "scripts": {
+    "setup": "node ./bin/setup.js",
+    "postinstall": "node ./bin/hello.js",
+    "dev": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "gatsby-provision": "gatsby-provision-contentful --contentful-data-path='./contentful/export.json' --space-id=$CONTENTFUL_SPACE_ID --management-token=$CONTENTFUL_MANAGEMENT_TOKEN",
+    "netlify:login": "netlify login",
+    "netlify:deploy": "netlify deploy -d public -p",
+    "heroku-postbuild": "gatsby build"
+  },
+  "dependencies": {
+    "@contentful/rich-text-plain-text-renderer": "^15.12.1",
+    "gatsby": "^5.5.0",
+    "gatsby-plugin-image": "^3.5.0",
+    "gatsby-plugin-react-helmet": "^6.5.0",
+    "gatsby-plugin-sharp": "^5.5.0",
+    "gatsby-source-contentful": "^8.5.0",
+    "gatsby-transformer-sharp": "^5.5.0",
+    "gh-pages": "^3.1.0",
+    "lodash": "^4.17.21",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-helmet": "^6.1.0",
+    "reading-time": "^2.0.0-1"
+  },
+  "devDependencies": {
+    "contentful-import": "^8.3.2",
+    "gatsby-provision-contentful": "^0.0.5",
+    "netlify-cli": "^10.0.0"
+  },
+  "homepage": "https://github.com/Dmitry-White/Contentful-Playground.git#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dmitry-White/Contentful-Playground.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "gatsby",
+    "contentful",
+    "starter"
+  ],
+  "license": "MIT"
+}
