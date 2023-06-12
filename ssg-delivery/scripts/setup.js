@@ -1,10 +1,10 @@
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
 
-const parse = require('yargs-parser');
-const inquirer = require('inquirer');
 const chalk = require('chalk');
 const spaceImport = require('contentful-import');
+const inquirer = require('inquirer');
+const parse = require('yargs-parser');
 
 const exportFile = require('../contentful/export.json');
 
@@ -86,7 +86,7 @@ const prepareConfigs = (envVars, argv) => {
 
     fs.writeFileSync(
       file,
-      fileArr
+      `${fileArr
         .concat(
           file.includes('development')
             ? [
@@ -96,7 +96,7 @@ const prepareConfigs = (envVars, argv) => {
             : [],
         )
         .filter(Boolean)
-        .join('\n') + '\n',
+        .join('\n')}\n`,
       'utf8',
     );
     console.log(`Config file ${chalk.yellow(file)} written`);

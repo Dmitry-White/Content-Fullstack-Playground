@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Container = ({ children, as = 'div' }) => {
-  const Tag = as
+  const Tag = as;
 
   return (
     <Tag
@@ -13,7 +13,7 @@ const Container = ({ children, as = 'div' }) => {
     >
       {children}
     </Tag>
-  )
-}
+  );
+};
 
-export default Container
+export default Container;

@@ -1,16 +1,17 @@
-import React from 'react';
-import { Link } from 'gatsby';
-import get from 'lodash/get';
-import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
+import { Link } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { renderRichText } from 'gatsby-source-contentful/rich-text';
+import get from 'lodash/get';
+import React from 'react';
 import readingTime from 'reading-time';
 
-import Seo from '../components/seo';
-import Layout from '../components/layout';
 import Hero from '../components/hero';
+import Layout from '../components/layout';
+import Seo from '../components/seo';
 import Tags from '../components/tags';
+
 import * as styles from './blog-post.module.css';
 
 const Content = ({ previous, next, post }) => {

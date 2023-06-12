@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import * as styles from './tags.module.css'
+import * as styles from './tags.module.css';
 
 const Tags = ({ tags }) =>
   tags?.length > 0 && (
@@ -11,6 +11,6 @@ const Tags = ({ tags }) =>
         </div>
       ))}
     </small>
-  )
+  );
 
-export default Tags
+export default Tags;

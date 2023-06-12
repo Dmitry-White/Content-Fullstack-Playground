@@ -1,9 +1,9 @@
-import React from 'react';
 import get from 'lodash/get';
+import React from 'react';
 
-import Layout from '../components/layout';
-import Hero from '../components/hero';
 import ArticlePreview from '../components/article-preview';
+import Hero from '../components/hero';
+import Layout from '../components/layout';
 
 class RootIndex extends React.Component {
   render() {

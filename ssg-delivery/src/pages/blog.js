@@ -1,10 +1,10 @@
-import React from 'react';
 import get from 'lodash/get';
+import React from 'react';
 
-import Seo from '../components/seo';
-import Layout from '../components/layout';
-import Hero from '../components/hero';
 import ArticlePreview from '../components/article-preview';
+import Hero from '../components/hero';
+import Layout from '../components/layout';
+import Seo from '../components/seo';
 
 class BlogIndex extends React.Component {
   render() {
