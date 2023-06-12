@@ -14,7 +14,13 @@
     "gatsby-provision": "gatsby-provision-contentful --contentful-data-path='./contentful/export.json' --space-id=$CONTENTFUL_SPACE_ID --management-token=$CONTENTFUL_MANAGEMENT_TOKEN",
     "netlify:login": "netlify login",
     "netlify:deploy": "netlify deploy -d public -p",
-    "heroku-postbuild": "gatsby build"
+    "heroku-postbuild": "gatsby build",
+    "eslint": "eslint .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
+    "lint": "npm run prettier && npm run eslint",
+    "lint:fix": "npm run prettier:fix && npm run eslint:fix"
   },
   "dependencies": {
     "@contentful/rich-text-plain-text-renderer": "^15.12.1",
@@ -33,8 +39,15 @@
   },
   "devDependencies": {
     "contentful-import": "^8.3.2",
+    "eslint": "^8.42.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
     "gatsby-provision-contentful": "^0.0.5",
-    "netlify-cli": "^10.0.0"
+    "netlify-cli": "^10.0.0",
+    "prettier": "^2.8.8"
   },
   "homepage": "https://github.com/Dmitry-White/Contentful-Playground/blob/main/ssg-delivery/README.md",
   "repository": {
