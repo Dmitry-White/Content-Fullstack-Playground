@@ -1,7 +1,7 @@
-import React from 'react';
 import { Link } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
+import React from 'react';
 
 import * as styles from './article-preview.module.css';
 import Container from './container';

@@ -1,12 +1,11 @@
+import { useStaticQuery } from 'gatsby';
 import get from 'lodash/get';
 import React from 'react';
-import { useStaticQuery } from 'gatsby';
 
 import ArticlePreview from '../components/article-preview';
 import Hero from '../components/hero';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
-
 import blogIndexQuery from '../graphql/queries/blogIndex';
 
 class BlogIndex extends React.Component {

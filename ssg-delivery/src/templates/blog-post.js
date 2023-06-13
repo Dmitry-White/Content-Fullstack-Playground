@@ -11,7 +11,6 @@ import Hero from '../components/hero';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
 import Tags from '../components/tags';
-
 import blogPostQuery from '../graphql/queries/blogPost';
 
 import * as styles from './blog-post.module.css';

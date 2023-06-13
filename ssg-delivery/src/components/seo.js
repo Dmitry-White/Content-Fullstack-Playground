@@ -1,6 +1,6 @@
+import { useStaticQuery } from 'gatsby';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
-import { useStaticQuery } from 'gatsby';
 
 import siteMetadataQuery from '../graphql/queries/siteMetadata';
 

@@ -4,7 +4,6 @@ import React from 'react';
 import ArticlePreview from '../components/article-preview';
 import Hero from '../components/hero';
 import Layout from '../components/layout';
-
 import homeQuery from '../graphql/queries/home';
 
 class RootIndex extends React.Component {
