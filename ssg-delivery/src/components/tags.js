@@ -2,15 +2,15 @@ import React from 'react';
 
 import * as styles from './tags.module.css';
 
-const Tags = ({ tags }) =>
-  tags?.length > 0 && (
-    <small className={styles.tags}>
-      {tags.map((tag) => (
-        <div key={tag} className={styles.tag}>
-          {tag}
-        </div>
-      ))}
-    </small>
-  );
+const renderTag = (tag) => (
+  <div key={tag} className={styles.tag}>
+    {tag}
+  </div>
+);
+
+const Tags = ({ tags }) => {
+  const tagList = tags.map(renderTag);
+  return <small className={styles.tags}>{tagList}</small>;
+};
 
 export default Tags;
