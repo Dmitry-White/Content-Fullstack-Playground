@@ -12,6 +12,8 @@ import Layout from '../components/layout';
 import Seo from '../components/seo';
 import Tags from '../components/tags';
 
+import blogPostQuery from '../graphql/queries/blogPost';
+
 import * as styles from './blog-post.module.css';
 
 const Content = ({ previous, next, post }) => {
@@ -38,7 +40,7 @@ const Content = ({ previous, next, post }) => {
         <div className={styles.body}>
           {post.body?.raw && renderRichText(post.body, options)}
         </div>
-        <Tags tags={post.tags} />
+        {post.tags?.length > 0 && <Tags tags={post.tags} />}
         {(previous || next) && (
           <nav>
             <ul className={styles.articleNavigation}>
@@ -65,10 +67,20 @@ const Content = ({ previous, next, post }) => {
 };
 
 class BlogPostTemplate extends React.Component {
+  state = {
+    data: {},
+  };
+
+  componentDidMount() {
+    const data = useStaticQuery(blogPostQuery);
+
+    this.setState({ data });
+  }
+
   render() {
-    const post = get(this.props, 'data.contentfulBlogPost', {});
-    const previous = get(this.props, 'data.previous', {});
-    const next = get(this.props, 'data.next', {});
+    const post = get(this.state, 'data.contentfulBlogPost', {});
+    const previous = get(this.state, 'data.previous', {});
+    const next = get(this.state, 'data.next', {});
 
     const plainTextDescription = documentToPlainTextString(
       JSON.parse(post.description.raw),

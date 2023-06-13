@@ -1,7 +1,7 @@
 import { graphql } from 'gatsby';
 
 const query = graphql`
-  query HomeQuery {
+  query Home {
     allContentfulBlogPost(sort: { publishDate: DESC }) {
       nodes {
         title

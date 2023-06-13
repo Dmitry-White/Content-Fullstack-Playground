@@ -1,7 +1,7 @@
 import { graphql } from 'gatsby';
 
 const query = graphql`
-  query BlogIndexQuery {
+  query BlogIndex {
     allContentfulBlogPost(sort: { publishDate: DESC }) {
       nodes {
         title
