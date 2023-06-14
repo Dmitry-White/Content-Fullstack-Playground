@@ -14,7 +14,7 @@ class BlogIndex extends React.Component {
   };
 
   componentDidMount() {
-    const data = useStaticQuery(blogIndexQuery);
+    const data = {} // useStaticQuery(blogIndexQuery);
 
     this.setState({ data });
   }

@@ -5,7 +5,12 @@ import { Helmet } from 'react-helmet';
 import siteMetadataQuery from '../graphql/queries/siteMetadata';
 
 const Seo = ({ description = '', lang = 'en', meta = [], title, image }) => {
-  const { site } = useStaticQuery(siteMetadataQuery);
+  const { site } = {} //useStaticQuery(siteMetadataQuery);
+
+  const metaDescription = description || site?.siteMetadata?.description;
+  const defaultTitle = site?.siteMetadata?.title;
+
+  const htmlAttributes = { lang };
 
   const customMetada = [
     {
@@ -38,7 +43,7 @@ const Seo = ({ description = '', lang = 'en', meta = [], title, image }) => {
     },
     {
       name: `twitter:creator`,
-      content: site.siteMetadata?.social?.twitter || ``,
+      content: site?.siteMetadata?.social?.twitter || ``,
     },
     {
       name: `twitter:title`,
@@ -49,11 +54,6 @@ const Seo = ({ description = '', lang = 'en', meta = [], title, image }) => {
       content: metaDescription,
     },
   ];
-
-  const metaDescription = description || site.siteMetadata.description;
-  const defaultTitle = site.siteMetadata?.title;
-
-  const htmlAttributes = { lang };
 
   return (
     <Helmet

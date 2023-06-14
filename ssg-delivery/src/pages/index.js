@@ -1,3 +1,4 @@
+import { useStaticQuery } from 'gatsby';
 import get from 'lodash/get';
 import React from 'react';
 
@@ -12,8 +13,10 @@ class RootIndex extends React.Component {
   };
 
   componentDidMount() {
-    const data = useStaticQuery(homeQuery);
+    console.log('Query: ', homeQuery);
+    const data = {}//useStaticQuery(homeQuery);
 
+    console.log('Data: ', data);
     this.setState({ data });
   }
 
@@ -24,7 +27,7 @@ class RootIndex extends React.Component {
     return (
       <Layout location={this.props.location}>
         <Hero
-          image={author.heroImage.gatsbyImage}
+          image={author.heroImage?.gatsbyImage}
           title={author.name}
           content={author.shortBio}
         />

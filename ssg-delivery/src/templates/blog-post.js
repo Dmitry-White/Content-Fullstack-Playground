@@ -1,6 +1,6 @@
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { Link } from 'gatsby';
+import { Link, useStaticQuery } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import get from 'lodash/get';
@@ -71,7 +71,7 @@ class BlogPostTemplate extends React.Component {
   };
 
   componentDidMount() {
-    const data = useStaticQuery(blogPostQuery);
+    const data = {} //useStaticQuery(blogPostQuery);
 
     this.setState({ data });
   }
