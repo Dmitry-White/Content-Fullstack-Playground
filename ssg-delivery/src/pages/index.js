@@ -1,28 +1,15 @@
-import { useStaticQuery } from 'gatsby';
+import { graphql } from 'gatsby';
 import get from 'lodash/get';
 import React from 'react';
 
 import ArticlePreview from '../components/article-preview';
 import Hero from '../components/hero';
 import Layout from '../components/layout';
-import homeQuery from '../graphql/queries/home';
 
 class RootIndex extends React.Component {
-  state = {
-    data: {},
-  };
-
-  componentDidMount() {
-    console.log('Query: ', homeQuery);
-    const data = {}//useStaticQuery(homeQuery);
-
-    console.log('Data: ', data);
-    this.setState({ data });
-  }
-
   render() {
-    const posts = get(this.state, 'data.allContentfulBlogPost.nodes', []);
-    const [author] = get(this.state, 'data.allContentfulPerson.nodes', [{}]);
+    const posts = get(this.props, 'data.allContentfulBlogPost.nodes', []);
+    const [author] = get(this.props, 'data.allContentfulPerson.nodes', [{}]);
 
     return (
       <Layout location={this.props.location}>
@@ -36,5 +23,22 @@ class RootIndex extends React.Component {
     );
   }
 }
+
+export const query = graphql`
+  query Home {
+    allContentfulPerson(
+      filter: { contentful_id: { eq: "15jwOBqpxqSAOy2eOO4S0m" } }
+    ) {
+      nodes {
+        ...PersonFields
+      }
+    }
+    allContentfulBlogPost(sort: { publishDate: DESC }) {
+      nodes {
+        ...HomeFields
+      }
+    }
+  }
+`;
 
 export default RootIndex;

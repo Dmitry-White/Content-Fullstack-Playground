@@ -1,11 +1,15 @@
-import { useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 
-import siteMetadataQuery from '../graphql/queries/siteMetadata';
-
 const Seo = ({ description = '', lang = 'en', meta = [], title, image }) => {
-  const { site } = {} //useStaticQuery(siteMetadataQuery);
+  const { site } = useStaticQuery(graphql`
+    query SiteMetadata {
+      site {
+        ...MetadataFields
+      }
+    }
+  `);
 
   const metaDescription = description || site?.siteMetadata?.description;
   const defaultTitle = site?.siteMetadata?.title;

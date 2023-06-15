@@ -1,6 +1,6 @@
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 import { BLOCKS } from '@contentful/rich-text-types';
-import { Link, useStaticQuery } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import get from 'lodash/get';
@@ -11,12 +11,11 @@ import Hero from '../components/hero';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
 import Tags from '../components/tags';
-import blogPostQuery from '../graphql/queries/blogPost';
 
 import * as styles from './blog-post.module.css';
 
 const Content = ({ previous, next, post }) => {
-  const plainTextBody = documentToPlainTextString(JSON.parse(post.body.raw));
+  const plainTextBody = documentToPlainTextString(JSON.parse(post.body?.raw));
   const { minutes: timeToRead } = readingTime(plainTextBody);
 
   const options = {
@@ -66,23 +65,13 @@ const Content = ({ previous, next, post }) => {
 };
 
 class BlogPostTemplate extends React.Component {
-  state = {
-    data: {},
-  };
-
-  componentDidMount() {
-    const data = {} //useStaticQuery(blogPostQuery);
-
-    this.setState({ data });
-  }
-
   render() {
-    const post = get(this.state, 'data.contentfulBlogPost', {});
-    const previous = get(this.state, 'data.previous', {});
-    const next = get(this.state, 'data.next', {});
+    const post = get(this.props, 'data.contentfulBlogPost', {});
+    const previous = get(this.props, 'data.previous', {});
+    const next = get(this.props, 'data.next', {});
 
     const plainTextDescription = documentToPlainTextString(
-      JSON.parse(post.description.raw),
+      JSON.parse(post.description?.raw),
     );
 
     return (
@@ -102,5 +91,23 @@ class BlogPostTemplate extends React.Component {
     );
   }
 }
+
+export const query = graphql`
+  query BlogPostBySlug(
+    $slug: String!
+    $previousPostSlug: String
+    $nextPostSlug: String
+  ) {
+    contentfulBlogPost(slug: { eq: $slug }) {
+      ...BlogPostFields
+    }
+    previous: contentfulBlogPost(slug: { eq: $previousPostSlug }) {
+      ...IteratePostFields
+    }
+    next: contentfulBlogPost(slug: { eq: $nextPostSlug }) {
+      ...IteratePostFields
+    }
+  }
+`;
 
 export default BlogPostTemplate;
