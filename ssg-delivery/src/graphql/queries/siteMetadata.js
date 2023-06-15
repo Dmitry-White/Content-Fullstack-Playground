@@ -1,12 +1,10 @@
 import { graphql } from 'gatsby';
 
-const query = graphql`
-  query SiteMetadata {
-    site {
-      siteMetadata {
-        title
-        description
-      }
+export const query = graphql`
+  fragment MetadataFields on Site {
+    siteMetadata {
+      title
+      description
     }
   }
 `;

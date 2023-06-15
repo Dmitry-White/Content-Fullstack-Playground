@@ -1,41 +1,36 @@
 import { graphql } from 'gatsby';
 
-const query = graphql`
-  query Home {
-    allContentfulBlogPost(sort: { publishDate: DESC }) {
-      nodes {
-        title
-        slug
-        publishDate(formatString: "MMMM Do, YYYY")
-        tags
-        heroImage {
-          gatsbyImage(
-            layout: FULL_WIDTH
-            placeholder: BLURRED
-            width: 424
-            height: 212
-          )
-        }
-        description {
-          raw
-        }
-      }
+const contentfulPersonQuery = graphql`
+  fragment PersonFields on ContentfulPerson {
+    name
+    shortBio {
+      raw
     }
-    allContentfulPerson(
-      filter: { contentful_id: { eq: "15jwOBqpxqSAOy2eOO4S0m" } }
-    ) {
-      nodes {
-        name
-        shortBio {
-          raw
-        }
-        title
-        heroImage: image {
-          gatsbyImage(layout: CONSTRAINED, placeholder: BLURRED, width: 1180)
-        }
-      }
+    title
+    heroImage: image {
+      gatsbyImage(layout: CONSTRAINED, placeholder: BLURRED, width: 1180)
     }
   }
 `;
 
-export default query;
+const blogPostQuery = graphql`
+  fragment HomeFields on ContentfulBlogPost {
+    title
+    slug
+    publishDate(formatString: "MMMM Do, YYYY")
+    tags
+    heroImage {
+      gatsbyImage(
+        layout: FULL_WIDTH
+        placeholder: BLURRED
+        width: 424
+        height: 212
+      )
+    }
+    description {
+      raw
+    }
+  }
+`;
+
+export { contentfulPersonQuery, blogPostQuery };
