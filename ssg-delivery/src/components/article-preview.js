@@ -1,7 +1,10 @@
 import { Link } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
+import PropTypes from 'prop-types';
 import React from 'react';
+
+import { PostProps } from '../core/propTypes';
 
 import * as styles from './article-preview.module.css';
 import Container from './container';
@@ -32,6 +35,10 @@ const ArticlePreview = ({ posts }) => {
       <ul className={styles.articleList}>{articles}</ul>
     </Container>
   );
+};
+
+ArticlePreview.propTypes = {
+  posts: PropTypes.arrayOf(PostProps),
 };
 
 export default ArticlePreview;

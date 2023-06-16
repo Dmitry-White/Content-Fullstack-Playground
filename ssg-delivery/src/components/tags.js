@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { TagsProps } from '../core/propTypes';
+
 import * as styles from './tags.module.css';
 
 const renderTag = (tag) => (
@@ -11,6 +13,10 @@ const renderTag = (tag) => (
 const Tags = ({ tags }) => {
   const tagList = tags.map(renderTag);
   return <small className={styles.tags}>{tagList}</small>;
+};
+
+Tags.propTypes = {
+  tags: TagsProps,
 };
 
 export default Tags;

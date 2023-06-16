@@ -1,6 +1,9 @@
 import { graphql, useStaticQuery } from 'gatsby';
+import PropTypes from 'prop-types';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
+
+import { ImageProp, MetaProps } from '../core/propTypes';
 
 const Seo = ({ description = '', lang = 'en', meta = [], title, image }) => {
   const { site } = useStaticQuery(graphql`
@@ -68,6 +71,14 @@ const Seo = ({ description = '', lang = 'en', meta = [], title, image }) => {
       titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
     />
   );
+};
+
+Seo.propTypes = {
+  description: PropTypes.string,
+  lang: PropTypes.string,
+  meta: PropTypes.arrayOf(MetaProps),
+  title: PropTypes.string,
+  image: ImageProp,
 };
 
 export default Seo;

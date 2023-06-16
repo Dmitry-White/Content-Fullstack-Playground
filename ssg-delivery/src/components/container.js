@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const Container = ({ children, as = 'div' }) => {
@@ -14,6 +15,11 @@ const Container = ({ children, as = 'div' }) => {
       {children}
     </Tag>
   );
+};
+
+Container.propTypes = {
+  children: PropTypes.any,
+  as: PropTypes.string,
 };
 
 export default Container;

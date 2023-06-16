@@ -15,7 +15,7 @@ const ROUTES = [
 ];
 
 const renderNavigationItem = ({ name, url }) => (
-  <li className={styles.navigationItem}>
+  <li key={url} className={styles.navigationItem}>
     <Link to={url} activeClassName="active">
       {name}
     </Link>

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Footer from './footer';
@@ -7,7 +8,7 @@ import Seo from './seo';
 import './variables.css';
 import './global.css';
 
-class Template extends React.Component {
+class Layout extends React.Component {
   render() {
     const { children } = this.props;
 
@@ -22,4 +23,8 @@ class Template extends React.Component {
   }
 }
 
-export default Template;
+Layout.propTypes = {
+  children: PropTypes.any,
+};
+
+export default Layout;
