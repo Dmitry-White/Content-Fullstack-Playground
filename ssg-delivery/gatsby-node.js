@@ -1,6 +1,6 @@
 const path = require('path');
 
-exports.createPages = async ({ graphql, actions, reporter }) => {
+const createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
 
   // Define a template for blog post
@@ -50,4 +50,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       });
     });
   }
+};
+
+module.exports = {
+  createPages,
 };
