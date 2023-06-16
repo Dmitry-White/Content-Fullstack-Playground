@@ -1,5 +1,6 @@
 import { graphql } from 'gatsby';
 import get from 'lodash/get';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import ArticlePreview from '../components/article-preview';
@@ -23,6 +24,10 @@ class RootIndex extends React.Component {
     );
   }
 }
+
+RootIndex.propTypes = {
+  location: PropTypes.object.isRequired,
+};
 
 export const query = graphql`
   query Home {

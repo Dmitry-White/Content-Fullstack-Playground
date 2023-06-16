@@ -4,6 +4,7 @@ import { graphql, Link } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import get from 'lodash/get';
+import PropTypes from 'prop-types';
 import React from 'react';
 import readingTime from 'reading-time';
 
@@ -11,6 +12,7 @@ import Hero from '../components/hero';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
 import Tags from '../components/tags';
+import { PostProps } from '../core/propTypes';
 
 import * as styles from './blog-post.module.css';
 
@@ -64,6 +66,12 @@ const Content = ({ previous, next, post }) => {
   );
 };
 
+Content.propTypes = {
+  post: PostProps,
+  next: PostProps,
+  previous: PostProps,
+};
+
 class BlogPostTemplate extends React.Component {
   render() {
     const post = get(this.props, 'data.contentfulBlogPost', {});
@@ -91,6 +99,10 @@ class BlogPostTemplate extends React.Component {
     );
   }
 }
+
+BlogPostTemplate.propTypes = {
+  location: PropTypes.object.isRequired,
+};
 
 export const query = graphql`
   query BlogPostBySlug(
