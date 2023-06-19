@@ -4,11 +4,10 @@ SPACE_ID=$1
 FILE_PATH=$2
 
 echo "Script running..."
-echo "Migration: $FILE_PATH..."
+echo "Generate: $FILE_PATH..."
 
-contentful space migration \
+contentful space generate migration \
     --space-id=$SPACE_ID \
-    --yes \
-    $FILE_PATH
+    --filename=$FILE_PATH
 
 echo "Script successful!"
