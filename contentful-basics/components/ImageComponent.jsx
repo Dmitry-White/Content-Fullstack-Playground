@@ -1,13 +1,14 @@
-import _ from "lodash";
-import Image from "next/image";
+import _ from 'lodash';
+import Image from 'next/image';
+
 const ImageComponent = (props) => {
-  const id = _.get(props, "id");
-  const image = _.get(props, "image");
-  const imgUrl = _.get(image, "fields.file.url");
-  const imgAltText = _.get(image, "fields.title");
+  const id = _.get(props, 'id');
+  const image = _.get(props, 'image');
+  const imgUrl = _.get(image, 'fields.file.url');
+  const imgAltText = _.get(image, 'fields.title');
 
   if (!image) {
-    return "";
+    return '';
   }
   return (
     <>

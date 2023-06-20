@@ -1,11 +1,12 @@
-import _ from "lodash";
-import ProductSection from "../components/ProductSection";
-import { getEntriesByContentType } from "../lib/helpers";
+import _ from 'lodash';
+
+import ProductSection from '../components/ProductSection';
+import { getEntriesByContentType } from '../lib/helpers';
 
 export default function Home(props) {
-  const page = _.get(props, "page");
-  const sections = _.get(page, "fields.sections"); // this field is an array of page sections
-  const headline = _.get(page, "fields.headline");
+  const page = _.get(props, 'page');
+  const sections = _.get(page, 'fields.sections'); // this field is an array of page sections
+  const headline = _.get(page, 'fields.headline');
 
   console.log(page); // you can view this object in the console
   return (
@@ -15,10 +16,10 @@ export default function Home(props) {
       <div className="flex flex-col space-y-4">
         {Array.isArray(sections)
           ? sections.map((section, sectionIndex) => {
-              const contentType = _.get(section, "sys.contentType.sys.id");
-              const sectionId = _.get(section, "sys.id");
-              const fields = _.get(section, "fields");
-              if (contentType === "productSection") {
+              const contentType = _.get(section, 'sys.contentType.sys.id');
+              const sectionId = _.get(section, 'sys.id');
+              const fields = _.get(section, 'fields');
+              if (contentType === 'productSection') {
                 return (
                   <ProductSection
                     key={sectionId}
@@ -28,21 +29,21 @@ export default function Home(props) {
                 );
               }
 
-              if (contentType === "product") {
+              if (contentType === 'product') {
                 return <>{contentType}</>;
               }
 
-              return "";
+              return '';
             })
-          : ""}
+          : ''}
       </div>
     </>
   );
 }
 
 export async function getStaticProps() {
-  const pageEntries = await getEntriesByContentType("landingPage", "home-page");
-  let homepageEntry = _.get(pageEntries, "items[0]");
+  const pageEntries = await getEntriesByContentType('landingPage', 'home-page');
+  let homepageEntry = _.get(pageEntries, 'items[0]');
 
   return {
     props: {

@@ -1,13 +1,15 @@
-import _ from "lodash";
-import ProductCardComponent from "./ProductCardComponent";
+import _ from 'lodash';
+
+import ProductCardComponent from './ProductCardComponent';
+
 const ProductSection = (props) => {
-  const id = _.get(props, "id");
-  const fields = _.get(props, "fields");
-  const title = _.get(fields, "title");
-  const products = _.get(fields, "products");
+  const id = _.get(props, 'id');
+  const fields = _.get(props, 'fields');
+  const title = _.get(fields, 'title');
+  const products = _.get(fields, 'products');
 
   if (!fields) {
-    return "";
+    return '';
   }
   return (
     <div className="">
@@ -17,9 +19,9 @@ const ProductSection = (props) => {
 
         {Array.isArray(products)
           ? products.map((product, productIndex) => {
-              const contentType = _.get(product, "sys.contentType.sys.id");
-              const productId = _.get(product, "sys.id");
-              const fields = _.get(product, "fields");
+              const contentType = _.get(product, 'sys.contentType.sys.id');
+              const productId = _.get(product, 'sys.id');
+              const fields = _.get(product, 'fields');
               return (
                 <ProductCardComponent
                   productIndex={productIndex}
@@ -29,7 +31,7 @@ const ProductSection = (props) => {
                 />
               );
             })
-          : ""}
+          : ''}
       </div>
     </div>
   );

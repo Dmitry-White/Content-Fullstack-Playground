@@ -1,15 +1,17 @@
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import _ from "lodash";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import richtextRenderOptions from "../lib/richtextRenderOptions";
-import ImageComponent from "./ImageComponent";
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import _ from 'lodash';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+
+import richtextRenderOptions from '../lib/richtextRenderOptions';
+
+import ImageComponent from './ImageComponent';
 
 const ProductCardComponent = (props) => {
   const router = useRouter();
-  const id = _.get(props, "id");
-  const productIndex = _.get(props, "productIndex");
-  const fields = _.get(props, "fields");
+  const id = _.get(props, 'id');
+  const productIndex = _.get(props, 'productIndex');
+  const fields = _.get(props, 'fields');
 
   const [indexIsOdd, setIndexIsOdd] = useState(false);
 
@@ -20,17 +22,17 @@ const ProductCardComponent = (props) => {
     return () => {};
   }, []);
 
-  console.log("description field", fields.description);
+  console.log('description field', fields.description);
 
   if (!fields) {
-    return "";
+    return '';
   }
   return (
     <div className="">
       <div className="flex flex-col space-y-10x lg:space-y-0x lg:space-x-10x lg:flex-row w-full p-6x lg:py-10x lg:px-40x overflow-hidden rounded-md shadow-lg">
         <div
           className={`w-1/2 bg-blau9x bg-blau3 p-10 ${
-            indexIsOdd ? "order-last" : ""
+            indexIsOdd ? 'order-last' : ''
           }`}
         >
           <ImageComponent image={fields.image} />
@@ -43,7 +45,7 @@ const ProductCardComponent = (props) => {
             <div className="">
               {documentToReactComponents(
                 fields.description,
-                richtextRenderOptions
+                richtextRenderOptions,
               )}
             </div>
             <p className=" text-xl ">${fields.price}</p>

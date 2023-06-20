@@ -1,14 +1,14 @@
 module.exports = (migration) => {
-  const product = migration.editContentType("product");
+  const product = migration.editContentType('product');
 
-  product.changeFieldControl("slug", "builtin", "slugEditor");
+  product.changeFieldControl('slug', 'builtin', 'slugEditor');
 
-  product.editField("description").validations([
+  product.editField('description').validations([
     {
-      enabledNodeTypes: ["heading-1", "hyperlink", "ordered-list"],
+      enabledNodeTypes: ['heading-1', 'hyperlink', 'ordered-list'],
     },
     {
-      enabledMarks: ["bold", "italic", "underline"],
+      enabledMarks: ['bold', 'italic', 'underline'],
     },
   ]);
 };

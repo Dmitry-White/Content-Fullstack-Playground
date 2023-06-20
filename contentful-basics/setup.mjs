@@ -1,16 +1,17 @@
-"use strict";
-import chalk from "chalk";
-import { createRequire } from "module";
-const require = createRequire(
-    import.meta.url);
-const contentful = require("contentful-management");
-const spaceImport = require("contentful-import");
-const exportFile = require("./space-export/space.json");
-const inquirer = require("inquirer");
+'use strict';
+import { createRequire } from 'module';
 
-// const chalk = require("chalk");
-const path = require("path");
-const { writeFileSync } = require("fs");
+import chalk from 'chalk';
+
+const { writeFileSync } = require('fs');
+const path = require('path');
+
+const spaceImport = require('contentful-import');
+const contentful = require('contentful-management');
+const inquirer = require('inquirer');
+
+const require = createRequire(import.meta.url);
+const exportFile = require('./space-export/space.json');
 
 console.log(`
   To set up this project you need to provide your Space ID
@@ -19,18 +20,18 @@ console.log(`
   You can find all the needed information in your Contentful space under:
 
   ${chalk.yellow(
-    `app.contentful.com ${chalk.red("->")} Space Settings ${chalk.red(
-      "->"
-    )} API keys`
+    `app.contentful.com ${chalk.red('->')} Space Settings ${chalk.red(
+      '->',
+    )} API keys`,
   )}
 
-  The ${chalk.green("Content Management API Token")}
+  The ${chalk.green('Content Management API Token')}
     will be used to import and write data to your space.
 
-  The ${chalk.green("Content Delivery API Token")}
+  The ${chalk.green('Content Delivery API Token')}
     will be used to retrieve published content items.
 
-    The ${chalk.green("Content Preview API Token")}
+    The ${chalk.green('Content Preview API Token')}
     will be used to retrieve published and unpublished content items.
 
   Ready? Let's do it! 🎉
@@ -38,40 +39,40 @@ console.log(`
 
 const questions = [
   {
-    name: "spaceId",
-    message: "Your Space ID",
+    name: 'spaceId',
+    message: 'Your Space ID',
     validate: (input) =>
       /^[a-z0-9]{12}$/.test(input) ||
-      "Space ID must be 12 lowercase characters",
+      'Space ID must be 12 lowercase characters',
   },
   {
-    name: "accessToken",
-    message: "Your Content Delivery API access token",
+    name: 'accessToken',
+    message: 'Your Content Delivery API access token',
   },
   {
-    name: "previewToken",
-    message: "Your Content Preview API access token",
+    name: 'previewToken',
+    message: 'Your Content Preview API access token',
   },
   {
-    name: "managementToken",
-    message: "Your Content Management API access token",
+    name: 'managementToken',
+    message: 'Your Content Management API access token',
   },
 ];
 
 inquirer
   .prompt(questions)
   .then((answers) => {
-    console.log("Writing config file...");
-    const spaceId = answers.spaceId ? answers.spaceId : "";
-    const accessToken = answers.accessToken ? answers.accessToken : "";
-    const previewToken = answers.previewToken ? answers.previewToken : "";
-    const previewSecret = answers.previewSecret ? answers.previewSecret : "";
-    const env = "master";
+    console.log('Writing config file...');
+    const spaceId = answers.spaceId ? answers.spaceId : '';
+    const accessToken = answers.accessToken ? answers.accessToken : '';
+    const previewToken = answers.previewToken ? answers.previewToken : '';
+    const previewSecret = answers.previewSecret ? answers.previewSecret : '';
+    const env = 'master';
     const managementToken = answers.managementToken
       ? answers.managementToken
-      : ""
+      : ''
       ? answers.managementToken
-      : "";
+      : '';
 
     const fileContents =
       [
@@ -81,22 +82,22 @@ inquirer
         `CMA_TOKEN='${managementToken}'`,
         `NEXT_PUBLIC_PREVIEW_SECRET='testing'`,
         `NEXT_PUBLIC_ENVIRONMENT='${env}'`,
-      ].join("\n") + "\n";
+      ].join('\n') + '\n';
 
-    writeFileSync(".env", fileContents, "utf8");
+    writeFileSync('.env', fileContents, 'utf8');
 
     return { spaceId, managementToken, accessToken, env };
   })
   .then((managementConfig) => {
-    const spaceId = managementConfig.spaceId ? managementConfig.spaceId : "";
+    const spaceId = managementConfig.spaceId ? managementConfig.spaceId : '';
     const managementToken = managementConfig.managementToken
       ? managementConfig.managementToken
-      : "";
+      : '';
     const accessToken = managementConfig.accessToken
       ? managementConfig.accessToken
-      : "";
+      : '';
 
-    const envId = managementConfig.env ? managementConfig.env : "master";
+    const envId = managementConfig.env ? managementConfig.env : 'master';
 
     // console.log(managementConfig);
     if (spaceId && managementToken) {
@@ -125,7 +126,7 @@ inquirer
           const contentTypes = await environment.getContentTypes();
           let totalContentTypes = contentTypes.total;
           console.log(
-            chalk.red(`Deleting! ${totalContentTypes} content types`)
+            chalk.red(`Deleting! ${totalContentTypes} content types`),
           );
           console.log(contentTypes);
           for (const contentType of contentTypes.items) {
@@ -152,7 +153,7 @@ inquirer
     } else {
       console.log(
         `Missing Management token! '
-            )} Please Try Again ${chalk.red("ERROR")} .`
+            )} Please Try Again ${chalk.red('ERROR')} .`,
       );
     }
   });
