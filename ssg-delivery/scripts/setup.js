@@ -3,6 +3,7 @@ const path = require('path');
 
 const chalk = require('chalk');
 const spaceImport = require('contentful-import');
+const contentful = require('contentful-management');
 const inquirer = require('inquirer');
 const parse = require('yargs-parser');
 
@@ -67,6 +68,7 @@ const prepareConfigs = (envVars, argv) => {
     accessToken:
       CONTENTFUL_ACCESS_TOKEN || argv.accessToken || envVars.accessToken,
     managementToken: argv.managementToken || envVars.managementToken,
+    environmentId: 'master',
     content: exportFile,
   };
 
@@ -84,25 +86,59 @@ const prepareConfigs = (envVars, argv) => {
       `CONTENTFUL_ACCESS_TOKEN='${config.accessToken}'`,
     ];
 
-    fs.writeFileSync(
-      file,
-      `${fileArr
-        .concat(
-          file.includes('development')
-            ? [
-                `# To add draft content preview, uncomment the below line and use the Content Preview API Access Token`,
-                `# CONTENTFUL_HOST='preview.contentful.com'`,
-              ]
-            : [],
-        )
-        .filter(Boolean)
-        .join('\n')}\n`,
-      'utf8',
-    );
+    const fileContents = `${fileArr
+      .concat(
+        file.includes('development')
+          ? [
+              `# To add draft content preview, uncomment the below line and use the Content Preview API Access Token`,
+              `# CONTENTFUL_HOST='preview.contentful.com'`,
+            ]
+          : [],
+      )
+      .filter(Boolean)
+      .join('\n')}\n`;
+
+    fs.writeFileSync(file, fileContents, 'utf8');
     console.log(`Config file ${chalk.yellow(file)} written`);
   });
 
   return config;
+};
+
+const deleteEntities = async (entities) => {
+  for (const entity of entities.items) { // eslint-disable-line
+    if (entity.isPublished()) {
+      console.log(`Unpublishing content type "${entity.sys.id}"`);
+      await entity.unpublish(); // eslint-disable-line
+    }
+    await entity.delete(); // eslint-disable-line
+  }
+};
+
+const cleanContent = async (config) => {
+  const { spaceId, managementToken, environmentId } = config;
+
+  const client = contentful.createClient({ accessToken: managementToken });
+
+  const contentfulSpace = await client.getSpace(spaceId);
+  const environment = await contentfulSpace.getEnvironment(environmentId);
+  const entries = await environment.getEntries();
+  const contentTypes = await environment.getContentTypes();
+
+  console.log(chalk.red(`Deleting ${entries.total} entries:`));
+  await deleteEntities(entries);
+
+  console.log(chalk.red(`Deleting ${contentTypes.total} content types:`));
+  await deleteEntities(contentTypes);
+};
+
+const manageContent = async (config) => {
+  try {
+    await cleanContent(config);
+    await spaceImport(config);
+  } catch (error) {
+    console.log(chalk.red(`An error occured!`), error);
+  }
 };
 
 const setup = async (questions, argv) => {
@@ -111,7 +147,7 @@ const setup = async (questions, argv) => {
 
     const config = prepareConfigs(envVars, argv);
 
-    await spaceImport(config);
+    await manageContent(config);
 
     console.log(
       `All set! You can now run ${chalk.yellow(
