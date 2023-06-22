@@ -3,6 +3,7 @@ import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 const Bold = ({ children }) => (
   <span className="font-bold text-blue-500"> {children} </span>
 );
+
 const Heading1 = ({ children }) => (
   <div className="mb-4">
     <span className="text-4xl md:text-6xl font-bold text-white">
@@ -20,6 +21,7 @@ const Heading2 = ({ children }) => (
     </span>{' '}
   </div>
 );
+
 const Parag = ({ children }) => (
   <div className="mb-4 ">
     <p className=""> {children} </p>{' '}
@@ -33,13 +35,10 @@ const HyperLNK = ({ node, children }) => {
       {' '}
       <a href={URI} target="_blank" rel="noreferrer">
         {' '}
-        {/* {URI} */} {children}{' '}
+        {children}{' '}
       </a>{' '}
     </span>
   );
-};
-const CustomView = () => {
-  return <></>;
 };
 
 const richtextRenderOptions = {

@@ -17,6 +17,7 @@ const MainLayout = (props) => {
       <main>
         <div className="h-screenx py-20 px-60"> {props.children}</div>
       </main>
+
       <div className="mt-4 p-2 bg-blau text-white">
         <a
           href="https://training.contentful.com"

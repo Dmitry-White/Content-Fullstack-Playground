@@ -7,7 +7,8 @@ const preview_token = process.env.CONTENTFUL_PREVIEW_TOKEN;
 const environment = process.env.CONTENTFUL_ENVIRONMENT;
 
 const getOptions = (is_preview) => {
-  let options = {};
+  const options = {};
+
   options.space = space_id;
   options.host = is_preview ? 'preview.contentful.com' : undefined;
   options.accessToken = is_preview ? preview_token : access_token;
@@ -17,13 +18,16 @@ const getOptions = (is_preview) => {
   return options;
 };
 
-export const getAllLocales = async () => {
+const getAllLocales = async () => {
   const options = getOptions(false);
   const contentfulClient = contentful.createClient(options);
+
   try {
-    let allLocales = await contentfulClient.getLocales();
-    let dataType = _.get(allLocales, 'sys.type');
-    let items = _.get(allLocales, 'items');
+    const allLocales = await contentfulClient.getLocales();
+
+    const dataType = _.get(allLocales, 'sys.type');
+    const items = _.get(allLocales, 'items');
+
     if (dataType === 'Array') {
       return items;
     } else {
@@ -34,19 +38,19 @@ export const getAllLocales = async () => {
   }
 };
 
-export const getEntriesByContentType = async (content_type, slug = null) => {
+const getEntriesByContentType = async (content_type, slug = null) => {
   const options = getOptions(false);
 
   try {
-    const contentfulClient = contentful.createClient(options); // https://contentful.github.io/contentful.js/contentful/9.1.9/contentful.html#.createClient
+    const contentfulClient = contentful.createClient(options);
     if (contentfulClient) {
-      let params = { content_type: content_type, include: 3 }; //include -> to retrieve related data(linked entries) in same request, number of levels is 3
+      const params = { content_type: content_type, include: 3 };
 
       if (slug) {
         params['fields.slug'] = slug;
       }
 
-      let entries = await contentfulClient.getEntries(params); // https://contentful.github.io/contentful.js/contentful/9.1.9/ContentfulClientAPI.html#.getEntries
+      const entries = await contentfulClient.getEntries(params);
 
       const items = _.get(entries, 'items');
 
@@ -59,3 +63,5 @@ export const getEntriesByContentType = async (content_type, slug = null) => {
     return false;
   }
 };
+
+export { getAllLocales, getEntriesByContentType };
