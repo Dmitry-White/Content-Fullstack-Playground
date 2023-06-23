@@ -96,7 +96,8 @@ const prepareConfigs = (envVars, argv) => {
 };
 
 const deleteEntities = async (entities) => {
-  for (const entity of entities.items) { // eslint-disable-line
+  // eslint-disable-next-line
+  for (const entity of entities.items) {
     if (entity.isPublished()) {
       console.log(`Unpublishing content type "${entity.sys.id}"`);
       await entity.unpublish(); // eslint-disable-line
