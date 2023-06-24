@@ -15,8 +15,8 @@
     "eslint:fix": "npm run eslint -- --fix",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "lint": "next lint",
-    "lint:fix": "npm run lint -- --fix"
+    "lint": "npm run prettier && npm run eslint",
+    "lint:fix": "npm run prettier:fix && npm run eslint:fix"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.12.1",

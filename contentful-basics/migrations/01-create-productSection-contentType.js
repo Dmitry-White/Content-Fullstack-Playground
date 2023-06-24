@@ -4,18 +4,18 @@ module.exports = (migration) => {
     .name('Product Section')
     .displayField('title');
 
-  const internalName = productSection
+  productSection
     .createField('internalName')
     .name('Internal Name')
     .type('Symbol');
 
-  const title = productSection
+  productSection
     .createField('title')
     .name('Title')
     .type('Symbol')
     .required(true);
 
-  const products = productSection
+  productSection
     .createField('products')
     .name('Products')
     .type('Array')
