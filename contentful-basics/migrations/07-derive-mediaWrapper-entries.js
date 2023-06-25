@@ -19,28 +19,32 @@ module.exports = (migration) => {
         return '';
       }
     },
-    transformEntryForLocale: (fromFields) => {
+    transformEntryForLocale: (fromFields, currentLocale) => {
+      if (currentLocale === 'de-DE') {
+        return;
+      }
+
       try {
         const oldImageId = _.get(fromFields, "image['en-US'].sys.id"); // id of existing image
 
         const slug = _.get(fromFields, "slug['en-US']");
 
-        if (oldImageId && slug) {
-          const derivedAsset = {
-            sys: { type: 'Link', linkType: 'Asset', id: oldImageId },
-          };
-
-          const transformedImage = {
-            internalName: slug,
-            title: slug,
-            altText: slug,
-            asset: derivedAsset,
-          };
-
-          return transformedImage;
+        if (!oldImageId && !slug) {
+          return false;
         }
 
-        return false;
+        const derivedAsset = {
+          sys: { type: 'Link', linkType: 'Asset', id: oldImageId },
+        };
+
+        const transformedImage = {
+          internalName: slug,
+          title: slug,
+          altText: slug,
+          asset: derivedAsset,
+        };
+
+        return transformedImage;
       } catch (error) {
         console.error(error);
         return false;
