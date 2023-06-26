@@ -34,7 +34,7 @@ const getAllLocales = async () => {
       return false;
     }
   } catch (error) {
-    console.log('getAllLocales error ', error);
+    console.log('[getAllLocales] error:', error);
   }
 };
 
@@ -59,7 +59,7 @@ const getEntriesByContentType = async (content_type, slug = null) => {
       return false;
     }
   } catch (error) {
-    console.log('any errors? ->', error);
+    console.log('[getEntriesByContentType] error:', error);
     return false;
   }
 };

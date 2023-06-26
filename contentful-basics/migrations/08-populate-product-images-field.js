@@ -20,7 +20,7 @@ module.exports = async function (migration, { makeRequest }) {
         const mediaWrapperItems = _.get(mediaWrapperEntries, 'items');
 
         if (!mediaWrapperItems) {
-          console.log('error', error);
+          console.log('[transformEntryForLocale] error: ', error);
           return false;
         }
 
@@ -37,7 +37,7 @@ module.exports = async function (migration, { makeRequest }) {
 
         return { images };
       } catch (error) {
-        console.log('error', error);
+        console.log('[transformEntryForLocale] error: ', error);
         return false;
       }
     },
