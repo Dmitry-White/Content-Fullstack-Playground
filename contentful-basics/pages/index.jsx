@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 import ProductSection from '../components/ProductSection';
-import { getEntriesByContentType } from '../lib/helpers';
+import { getEntriesByContentType } from '../core/api';
 
 async function getStaticProps() {
   const pageEntries = await getEntriesByContentType('landingPage', 'home-page');

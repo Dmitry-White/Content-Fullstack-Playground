@@ -3,9 +3,8 @@ import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import richtextRenderOptions from '../lib/richtextRenderOptions';
-
 import ImageComponent from './ImageComponent';
+import richtextRenderOptions from './richtextRenderOptions';
 
 const ProductCardComponent = (props) => {
   const productIndex = _.get(props, 'productIndex');

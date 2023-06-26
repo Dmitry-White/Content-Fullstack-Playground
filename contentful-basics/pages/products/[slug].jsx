@@ -4,8 +4,8 @@ import Head from 'next/head';
 
 import ImageComponent from '../../components/ImageComponent';
 import ImageGallery from '../../components/ImageGallery';
-import { getEntriesByContentType } from '../../lib/helpers';
-import richtextRenderOptions from '../../lib/richtextRenderOptions';
+import richtextRenderOptions from '../../components/richtextRenderOptions';
+import { getEntriesByContentType } from '../../core/api';
 
 async function getStaticPaths() {
   const productEntries = await getEntriesByContentType('product');

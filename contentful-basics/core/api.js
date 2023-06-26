@@ -1,22 +1,7 @@
 import * as contentful from 'contentful';
 import _ from 'lodash';
 
-const space_id = process.env.CONTENTFUL_SPACE_ID;
-const access_token = process.env.CONTENTFUL_ACCESS_TOKEN;
-const preview_token = process.env.CONTENTFUL_PREVIEW_TOKEN;
-const environment = process.env.CONTENTFUL_ENVIRONMENT;
-
-const getOptions = (is_preview) => {
-  const options = {};
-
-  options.space = space_id;
-  options.host = is_preview ? 'preview.contentful.com' : undefined;
-  options.accessToken = is_preview ? preview_token : access_token;
-  options.environment = environment ? environment : 'master';
-  options.resolveLinks = true;
-
-  return options;
-};
+import { getOptions } from './env';
 
 const getAllLocales = async () => {
   const options = getOptions(false);
@@ -28,11 +13,11 @@ const getAllLocales = async () => {
     const dataType = _.get(allLocales, 'sys.type');
     const items = _.get(allLocales, 'items');
 
-    if (dataType === 'Array') {
-      return items;
-    } else {
+    if (!dataType === 'Array') {
       return false;
     }
+
+    return items;
   } catch (error) {
     console.log('[getAllLocales] error:', error);
   }
