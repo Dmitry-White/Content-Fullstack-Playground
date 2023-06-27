@@ -8,9 +8,9 @@ echo "Script running..."
 echo "Migration: $FILE_PATH..."
 
 contentful space migration \
-    --space-id=$SPACE_ID \
-    --environment-id=$ENV_ID \
-    --yes \
-    $FILE_PATH
+  --space-id=$SPACE_ID \
+  --environment-id=$ENV_ID \
+  --yes \
+  $FILE_PATH
 
 echo "Script successful!"

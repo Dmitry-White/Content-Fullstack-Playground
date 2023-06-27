@@ -7,8 +7,8 @@ echo "Script running..."
 echo "Creating environment: $ENV_NAME..."
 
 contentful space environment create \
-    --space-id=$SPACE_ID \
-    --environment-id=$ENV_NAME \
-    --name=$ENV_NAME
+  --space-id=$SPACE_ID \
+  --environment-id=$ENV_NAME \
+  --name=$ENV_NAME
 
 echo "Script successful!"
