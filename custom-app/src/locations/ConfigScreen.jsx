@@ -1,7 +1,6 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { Heading, Form, Paragraph, Flex } from '@contentful/f36-components';
-import { css } from 'emotion';
-import { /* useCMA, */ useSDK } from '@contentful/react-apps-toolkit';
+import { Box, Paragraph } from "@contentful/f36-components"; //https://f36.contentful.com/
+import { /* useCMA, */ useSDK } from "@contentful/react-apps-toolkit"; //@contentful/react-apps-toolkit
+import React, { useCallback, useEffect, useState } from "react";
 
 const ConfigScreen = () => {
   const [parameters, setParameters] = useState({});
@@ -39,10 +38,8 @@ const ConfigScreen = () => {
     (async () => {
       // Get current parameters of the app.
       // If the app is not installed yet, `parameters` will be `null`.
-      const currentParameters = await sdk.app.getParameters();
-      if (currentParameters) {
-        setParameters(currentParameters);
-      }
+      const currentParameters = await sdk.app.getParameters(); //https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#configuration-of-an-extension-with-parameters
+
       // Once preparation has finished, call `setReady` to hide
       // the loading screen and present the app to a user.
       sdk.app.setReady();
@@ -50,12 +47,9 @@ const ConfigScreen = () => {
   }, [sdk]);
 
   return (
-    <Flex flexDirection="column" className={css({ margin: '80px', maxWidth: '800px' })}>
-      <Form>
-        <Heading>App Config</Heading>
-        <Paragraph>Welcome to your contentful app. This is your config page.</Paragraph>
-      </Form>
-    </Flex>
+    <Box padding="spacingM" marginTop="spacingL">
+      <Paragraph>Here you can add app configuration</Paragraph>
+    </Box>
   );
 };
 export default ConfigScreen;

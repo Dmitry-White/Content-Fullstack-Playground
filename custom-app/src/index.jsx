@@ -1,5 +1,5 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import { render } from 'react-dom';
 
 import { GlobalStyles } from '@contentful/f36-components';
 import { SDKProvider } from '@contentful/react-apps-toolkit';
@@ -7,17 +7,17 @@ import { SDKProvider } from '@contentful/react-apps-toolkit';
 import LocalhostWarning from './components/LocalhostWarning';
 import App from './App';
 
-const container = document.getElementById('root');
-const root = createRoot(container);
+const root = document.getElementById('root');
 
 if (process.env.NODE_ENV === 'development' && window.self === window.top) {
   // You can remove this if block before deploying your app
-  root.render(<LocalhostWarning />);
+  render(<LocalhostWarning />, root);
 } else {
-  root.render(
+  render(
     <SDKProvider>
       <GlobalStyles />
       <App />
-    </SDKProvider>
+    </SDKProvider>,
+    root
   );
 }

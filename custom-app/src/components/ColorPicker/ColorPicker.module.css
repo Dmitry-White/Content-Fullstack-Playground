@@ -1,0 +1,12 @@
+.colorTextInput {
+    margin: 0 !important;
+    padding: 0 !important;
+    cursor: pointer !important;
+    border: none !important;
+    outline: none !important;
+    -webkit-appearance: none !important;
+}
+
+*:focus {
+    outline: none;
+}
