@@ -1,6 +1,6 @@
-import { Box, Paragraph } from "@contentful/f36-components"; //https://f36.contentful.com/
-import { /* useCMA, */ useSDK } from "@contentful/react-apps-toolkit"; //@contentful/react-apps-toolkit
-import React, { useCallback, useEffect, useState } from "react";
+import { Box, Paragraph } from '@contentful/f36-components'; // https://f36.contentful.com/
+import { /* useCMA, */ useSDK } from '@contentful/react-apps-toolkit'; // @contentful/react-apps-toolkit
+import React, { useCallback, useEffect, useState } from 'react';
 
 const ConfigScreen = () => {
   const [parameters, setParameters] = useState({});
@@ -38,7 +38,9 @@ const ConfigScreen = () => {
     (async () => {
       // Get current parameters of the app.
       // If the app is not installed yet, `parameters` will be `null`.
-      const currentParameters = await sdk.app.getParameters(); //https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#configuration-of-an-extension-with-parameters
+      const currentParameters = await sdk.app.getParameters(); // https://www.contentful.com/developers/docs/extensibility/app-framework/sdk/#configuration-of-an-extension-with-parameters
+
+      setParameters(currentParameters);
 
       // Once preparation has finished, call `setReady` to hide
       // the loading screen and present the app to a user.

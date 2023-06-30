@@ -1,8 +1,8 @@
-import React from 'react';
 import { Paragraph } from '@contentful/f36-components';
 import { /* useCMA, */ useSDK } from '@contentful/react-apps-toolkit';
+import React from 'react';
 
-const Sidebar = () => {
+const Page = () => {
   const sdk = useSDK();
   /*
      To use the cma, inject it as follows.
@@ -10,7 +10,7 @@ const Sidebar = () => {
   */
   // const cma = useCMA();
 
-  return <Paragraph>Hello Sidebar Component (AppId: {sdk.ids.app})</Paragraph>;
+  return <Paragraph>Hello Page Component (AppId: {sdk.ids.app})</Paragraph>;
 };
 
-export default Sidebar;
+export default Page;

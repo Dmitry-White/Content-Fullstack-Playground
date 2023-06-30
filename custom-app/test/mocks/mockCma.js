@@ -1,2 +1,3 @@
 const mockCma = {};
-export { mockCma };
+
+export default mockCma;

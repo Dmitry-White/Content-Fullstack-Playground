@@ -1,9 +1,9 @@
-import { /* useCMA, */ useSDK } from "@contentful/react-apps-toolkit";
-import React, { useEffect, useState } from "react";
-import ColorPicker from "../components/ColorPicker/ColorPicker";
+import { /* useCMA, */ useSDK } from '@contentful/react-apps-toolkit';
+import React, { useEffect } from 'react';
+
+import ColorPicker from '../components/ColorPicker/ColorPicker';
 
 const Field = () => {
-  const [selectedColor, setSelectedColor] = useState("");
   const sdk = useSDK();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const Field = () => {
 
   return (
     <>
-      <ColorPicker key={"colorwheel-1"} />
+      <ColorPicker key={'colorwheel-1'} />
     </>
   );
 };

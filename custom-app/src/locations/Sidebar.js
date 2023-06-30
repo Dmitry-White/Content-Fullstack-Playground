@@ -1,8 +1,8 @@
-import React from 'react';
 import { Paragraph } from '@contentful/f36-components';
 import { /* useCMA, */ useSDK } from '@contentful/react-apps-toolkit';
+import React from 'react';
 
-const Entry = () => {
+const Sidebar = () => {
   const sdk = useSDK();
   /*
      To use the cma, inject it as follows.
@@ -10,7 +10,7 @@ const Entry = () => {
   */
   // const cma = useCMA();
 
-  return <Paragraph>Hello Entry Editor Component (AppId: {sdk.ids.app})</Paragraph>;
+  return <Paragraph>Hello Sidebar Component (AppId: {sdk.ids.app})</Paragraph>;
 };
 
-export default Entry;
+export default Sidebar;

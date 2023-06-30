@@ -1,7 +1,9 @@
-import React from 'react';
-import Field from './Field';
 import { render } from '@testing-library/react';
+import React from 'react';
+
 import { mockCma, mockSdk } from '../../test/mocks';
+
+import Field from './Field';
 
 jest.mock('@contentful/react-apps-toolkit', () => ({
   useSDK: () => mockSdk,
@@ -12,6 +14,8 @@ describe('Field component', () => {
   it('Component text exists', () => {
     const { getByText } = render(<Field />);
 
-    expect(getByText('Hello Entry Field Component (AppId: test-app)')).toBeInTheDocument();
+    expect(
+      getByText('Hello Entry Field Component (AppId: test-app)'),
+    ).toBeInTheDocument();
   });
 });
