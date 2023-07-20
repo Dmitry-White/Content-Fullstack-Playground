@@ -10,7 +10,7 @@ const Field = () => {
     // This ensures our app has enough space to render
     // @TODO startAutoResizer does not work great with the react-select component, is there a better way?
     // Currently change the widget height based on open/close as a workaround
-    sdk.window.updateHeight(60);
+    sdk.window?.updateHeight(60);
 
     // Get current value of the field so we can display it
   }, [sdk.field, sdk.window]);

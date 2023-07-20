@@ -12,10 +12,8 @@ jest.mock('@contentful/react-apps-toolkit', () => ({
 
 describe('Field component', () => {
   it('Component text exists', () => {
-    const { getByText } = render(<Field />);
+    const { getByTestId } = render(<Field />);
 
-    expect(
-      getByText('Hello Entry Field Component (AppId: test-app)'),
-    ).toBeInTheDocument();
+    expect(getByTestId('cf-ui-text-input')).toBeInTheDocument();
   });
 });

@@ -8,10 +8,10 @@ const re = /^#(?:[0-9a-f]{3}){1,2}$/i;
 const ColorPicker = () => {
   const sdk = useSDK();
 
-  const [selectedColor, setSelectedColor] = useState(sdk.field.getValue());
+  const [selectedColor, setSelectedColor] = useState(sdk.field?.getValue());
 
   useEffect(() => {
-    const storedValue = sdk.field.getValue();
+    const storedValue = sdk.field?.getValue();
     setSelectedColor(storedValue);
 
     return () => {};
@@ -22,7 +22,7 @@ const ColorPicker = () => {
     try {
       if (!value || !re.test(value)) return; // validate value
       setSelectedColor(value);
-      sdk.field.setValue(value);
+      sdk.field?.setValue(value);
     } catch (error) {
       // eslint-disable-next-line
       console.log('error', error);
