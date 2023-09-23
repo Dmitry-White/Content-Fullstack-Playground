@@ -1,2 +1,2 @@
-# Contentful-Playground
-Full of content related to Contentful
+# Content-Fullstack-Playground
+Full of content :dart: related to Content Full Stack :pencil:
