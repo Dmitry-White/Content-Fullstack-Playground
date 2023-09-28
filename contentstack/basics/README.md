@@ -1,32 +1,30 @@
-[![Contentstack Logo](/public/contentstack-readme-logo.png)](https://www.contentstack.com/)
+# Contentstack Basisc
 
+## Requirements
 
-# Build a Starter Website with Next.js and Contentstack
+- Node.js
+- Contentstack API access tokens
+- Empty Contentstack Stack
+- Contentstack CLI tools
 
-About Contentstack: Contentstack is a headless CMS with an API-first approach that puts content at the centre. It is designed to simplify the process of publication by separating code from content.
+## Setup
 
-About this project: Next.js is a minimalistic framework for server-rendered React applications.This guide will help you create a starter website built on top of Next.js with minimal steps.
+### Step 1
 
+Create an empty space in Contentstack if you haven't already.
+Create your first API key and note the API access tokens (Delivery and Stack).
+From the Contentstack web app go to SETTINGS --> Tokens....
 
+### Step 2
 
-![Contentstack-Nextjs-starter-app](/public/starter-app.png)
+After downloading/cloning this repo, navigate to the project's directory on your computer and run "npm install" from your terminal window to install the dependencies.
 
-## Live Demo
+### Step 3
 
-You can check the [live demo](https://contentstack-nextjs-starter-app.vercel.app) to get first-hand experience of the website.
+After installing the dependencies run the "npm run setup" command to configure the app.
+Type in the API tokens from step 1 at the prompt. The script will connect to the provided space, please use a demo space as the script will DELETE all entries and content types. I repeat the script will WIPE! the space clean before importing new content.
 
+### Step 4
 
-## Tutorial
+Run the app with "npm run dev". The app will now be running locally on port 9019, you may also change the port in the package.json file.
 
-We have created an in-depth tutorial on how you can create a Next.js starter website using Contentstack's Node.js SDK and its fetch content from Contentstack.
-
-[Build Website using Next.js and Contentstack](https://www.contentstack.com/docs/developers/sample-apps/build-a-starter-website-using-next-js-and-contentstack/)
-
-
-**More Resources**
-
-Read Contentstack [docs](https://www.contentstack.com/docs/)
-
-Region support [docs](https://www.contentstack.com/docs/developers/selecting-region-in-contentstack-starter-apps)
-
-Learn about [Next.js](https://learnnextjs.com/)
