@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { onEntryChange } from '../core';
-import RenderComponents from '../components/render-components';
-import { getPageRes } from '../helpers';
 import Skeleton from 'react-loading-skeleton';
-import { Props, Context } from "../types/pages";
+
+import RenderComponents from '../components/render-components';
+import { onEntryChange } from '../core';
+import { getPageRes } from '../helpers';
+import { Props, Context } from '../types/pages';
 
 export default function Home(props: Props) {
-
   const { page, entryUrl } = props;
 
   const [getEntry, setEntry] = useState(page);
@@ -28,7 +28,7 @@ export default function Home(props: Props) {
   return getEntry ? (
     <RenderComponents
       pageComponents={getEntry.page_components}
-      contentTypeUid='page'
+      contentTypeUid="page"
       entryUid={getEntry.uid}
       locale={getEntry.locale}
     />

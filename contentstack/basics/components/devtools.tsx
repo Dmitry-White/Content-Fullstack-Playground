@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import React, { useState, useEffect } from 'react';
+
 import Tooltip from './tool-tip';
 
 const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });

@@ -1,7 +1,6 @@
-import * as contentstack from 'contentstack';
-import * as Utils from '@contentstack/utils';
-
 import ContentstackLivePreview from '@contentstack/live-preview-utils';
+import * as Utils from '@contentstack/utils';
+import * as contentstack from 'contentstack';
 import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
@@ -60,8 +59,8 @@ export default {
         .find()
         .then(
           (result) => {
-            jsonRtePath
-              && Utils.jsonToHTML({
+            jsonRtePath &&
+              Utils.jsonToHTML({
                 entry: result,
                 paths: jsonRtePath,
                 renderOption,
@@ -84,9 +83,7 @@ export default {
    * @param {* Json RTE path} jsonRtePath
    * @returns
    */
-  getEntryByUrl({
-    contentTypeUid, entryUrl, referenceFieldPath, jsonRtePath,
-  }) {
+  getEntryByUrl({ contentTypeUid, entryUrl, referenceFieldPath, jsonRtePath }) {
     return new Promise((resolve, reject) => {
       const blogQuery = Stack.ContentType(contentTypeUid).Query();
       if (referenceFieldPath) blogQuery.includeReference(referenceFieldPath);
@@ -94,12 +91,12 @@ export default {
       const data = blogQuery.where('url', `${entryUrl}`).find();
       data.then(
         (result) => {
-          jsonRtePath
-          && Utils.jsonToHTML({
-            entry: result,
-            paths: jsonRtePath,
-            renderOption,
-          });
+          jsonRtePath &&
+            Utils.jsonToHTML({
+              entry: result,
+              paths: jsonRtePath,
+              renderOption,
+            });
           resolve(result[0]);
         },
         (error) => {

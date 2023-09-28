@@ -1,6 +1,6 @@
-import { Component } from "./component";
-import { Image } from "./action";
-import { Entry, HeaderProps ,FooterProps } from "./layout";
+import { Image } from './action';
+import { Component } from './component';
+import { Entry, HeaderProps, FooterProps } from './layout';
 
 type AdditionalParam = {
   powers: {};
@@ -20,7 +20,7 @@ type AdditionalParam = {
   announcement_text: string;
   label: {};
   url: string;
-}
+};
 
 type Post = {
   [x: string]: any;
@@ -32,32 +32,32 @@ type Post = {
   date: string;
   author: [Author];
   $: AdditionalParam;
-}
+};
 
 type Author = {
   title: string;
   $: AdditionalParam;
-}
+};
 
 type PageProps = {
   page: Page;
   posts: [];
-  archivePost: []; 
+  archivePost: [];
   blogPost: BlogPosts;
-}
+};
 
 type Seo = {
-  enable_search_indexing: boolean
-}
+  enable_search_indexing: boolean;
+};
 
 type Blog = {
   url: string;
   body: string;
   title: string;
   $: AdditionalParam;
-}
+};
 
-export type Props = {
+type Props = {
   page: Page;
   entryUrl: string;
   Component: Function;
@@ -65,9 +65,9 @@ export type Props = {
   pageProps: PageProps;
   header: HeaderProps;
   footer: FooterProps;
-}
+};
 
-export type Page ={
+type Page = {
   [x: string]: any;
   page_components: Component[];
   uid: string;
@@ -75,29 +75,25 @@ export type Page ={
   url: string;
   seo: Seo;
   title: string;
-}
+};
 
-export type Context = {
+type Context = {
   resolvedUrl: string;
   setHeader: Function;
   write: Function;
   end: Function;
-}
+};
 
-export type Pages = [
-  page: Page
-]
+type Pages = [page: Page];
 
-export type PostPage = [
-  post: Post
-]
+type PostPage = [post: Post];
 
-export type PageUrl = {
+type PageUrl = {
   pageUrl: string;
-}
+};
 
-export type BlogPosts = {
-  modular_blocks:any;
+type BlogPosts = {
+  modular_blocks: any;
   [x: string]: any;
   title: string;
   date: string;
@@ -105,7 +101,7 @@ export type BlogPosts = {
   author: [Author];
   related_post: [Blog];
   locale: string;
-  heading:string;
+  heading: string;
   featured_image: Image;
   is_archived: boolean;
   characters: any;
@@ -113,9 +109,9 @@ export type BlogPosts = {
   url: string;
   _owner: string;
   $: AdditionalParam;
-}
+};
 
-export type SuperHeroPosts = {
+type SuperHeroPosts = {
   [x: string]: any;
   title: string;
   date: string;
@@ -129,4 +125,15 @@ export type SuperHeroPosts = {
   url: string;
   _owner: string;
   $: AdditionalParam;
-}
+};
+
+export {
+  Props,
+  Page,
+  Context,
+  Pages,
+  PostPage,
+  PageUrl,
+  BlogPosts,
+  SuperHeroPosts,
+};

@@ -1,16 +1,17 @@
 import React from 'react';
 
-import Section from './section';
-import HeroBanner from './hero-banner';
-import BlogBanner from './blog-banner';
-import CardSection from './card-section';
-import TeamSection from './team-section';
-import BlogSection from './blog-section';
-import SectionBucket from './section-bucket';
+import { RenderProps } from '../types/component';
+
 import AboutSectionBucket from './about-section-bucket';
-import SectionWithHtmlCode from './section-with-html-code';
+import BlogBanner from './blog-banner';
+import BlogSection from './blog-section';
+import CardSection from './card-section';
 import Gallery from './gallery';
-import { RenderProps } from "../types/component";
+import HeroBanner from './hero-banner';
+import Section from './section';
+import SectionBucket from './section-bucket';
+import SectionWithHtmlCode from './section-with-html-code';
+import TeamSection from './team-section';
 
 export default function RenderComponents(props: RenderProps) {
   const { pageComponents, blogPost, entryUid, contentTypeUid, locale } = props;
@@ -22,7 +23,6 @@ export default function RenderComponents(props: RenderProps) {
       data-locale={locale}
     >
       {pageComponents?.map((component, key: number) => {
-
         if (component.hero_banner) {
           return blogPost ? (
             <BlogBanner
@@ -88,13 +88,15 @@ export default function RenderComponents(props: RenderProps) {
         }
         if (component?.superheroes) {
           return (
-            <Gallery key={`component-${key}`}
+            <Gallery
+              key={`component-${key}`}
               data={component?.superheroes?.character}
-              heading={undefined} showFilter={false}
+              heading={undefined}
+              showFilter={false}
               showDescription={false}
               description={component?.description}
             />
-          )
+          );
         }
       })}
     </div>

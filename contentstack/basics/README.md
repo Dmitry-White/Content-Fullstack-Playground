@@ -27,4 +27,3 @@ Type in the API tokens from step 1 at the prompt. The script will connect to the
 ### Step 4
 
 Run the app with "npm run dev". The app will now be running locally on port 9019, you may also change the port in the package.json file.
-

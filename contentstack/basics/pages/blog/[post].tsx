@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import moment from 'moment';
 import parse from 'html-react-parser';
-import { getPageRes, getBlogPostRes } from '../../helpers';
-import { onEntryChange } from '../../core';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import RenderComponents from '../../components/render-components';
+
 import ArchiveRelative from '../../components/archive-relative';
-import { Page, BlogPosts, PageUrl } from "../../types/pages";
+import RenderComponents from '../../components/render-components';
+import { onEntryChange } from '../../core';
+import { getPageRes, getBlogPostRes } from '../../helpers';
+import { Page, BlogPosts, PageUrl } from '../../types/pages';
 
-
-export default function BlogPost({ blogPost, page, pageUrl }: {blogPost: BlogPosts, page: Page, pageUrl: PageUrl}) {
-  
+export default function BlogPost({
+  blogPost,
+  page,
+  pageUrl,
+}: {
+  blogPost: BlogPosts;
+  page: Page;
+  pageUrl: PageUrl;
+}) {
   const [getPost, setPost] = useState({ banner: page, post: blogPost });
   async function fetchData() {
     try {
@@ -34,26 +41,26 @@ export default function BlogPost({ blogPost, page, pageUrl }: {blogPost: BlogPos
         <RenderComponents
           pageComponents={banner.page_components}
           blogPost
-          contentTypeUid='blog_post'
+          contentTypeUid="blog_post"
           entryUid={banner?.uid}
           locale={banner?.locale}
         />
       ) : (
         <Skeleton height={400} />
       )}
-      <div className='blog-container'>
-        <article className='blog-detail'>
+      <div className="blog-container">
+        <article className="blog-detail">
           {post && post.title ? (
-            <h2 {...post.$?.title as {}}>{post.title}</h2>
+            <h2 {...(post.$?.title as {})}>{post.title}</h2>
           ) : (
             <h2>
               <Skeleton />
             </h2>
           )}
           {post && post.date ? (
-            <p {...post.$?.date as {}}>
+            <p {...(post.$?.date as {})}>
               {moment(post.date).format('ddd, MMM D YYYY')},{' '}
-              <strong {...post.author[0].$?.title as {}}>
+              <strong {...(post.author[0].$?.title as {})}>
                 {post.author[0].title}
               </strong>
             </p>
@@ -63,15 +70,15 @@ export default function BlogPost({ blogPost, page, pageUrl }: {blogPost: BlogPos
             </p>
           )}
           {post && post.body ? (
-            <div {...post.$?.body as {}}>{parse(post.body)}</div>
+            <div {...(post.$?.body as {})}>{parse(post.body)}</div>
           ) : (
             <Skeleton height={800} width={600} />
           )}
         </article>
-        <div className='blog-column-right'>
-          <div className='related-post'>
+        <div className="blog-column-right">
+          <div className="related-post">
             {banner && banner?.page_components[2].widget ? (
-              <h2 {...banner?.page_components[2].widget.$?.title_h2 as {}}>
+              <h2 {...(banner?.page_components[2].widget.$?.title_h2 as {})}>
                 {banner?.page_components[2].widget.title_h2}
               </h2>
             ) : (

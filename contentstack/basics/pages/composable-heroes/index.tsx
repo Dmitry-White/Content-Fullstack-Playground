@@ -1,13 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { onEntryChange } from '../../core';
-import { getAllComposableHeros, getComposableHeroHomeWorld } from '../../helpers';
-import { Page, PostPage, PageUrl, Context } from "../../types/pages";
-import GalleryReact from '../../components/gallery'
 
-export default function ComposableHeroes({ page, posts, archivePost, pageUrl }: { page: Page, posts: PostPage, archivePost: PostPage, pageUrl: PageUrl }) {
+import GalleryReact from '../../components/gallery';
+import { onEntryChange } from '../../core';
+import {
+  getAllComposableHeros,
+  getComposableHeroHomeWorld,
+} from '../../helpers';
+import { Page, PostPage, PageUrl, Context } from '../../types/pages';
+
+export default function ComposableHeroes({
+  page,
+  posts,
+  archivePost,
+  pageUrl,
+}: {
+  page: Page;
+  posts: PostPage;
+  archivePost: PostPage;
+  pageUrl: PageUrl;
+}) {
   const [getBanner, setBanner] = useState(page);
   async function fetchData() {
-    
     try {
       const bannerRes = await getAllComposableHeros(pageUrl);
       if (!bannerRes) throw new Error('Status code 404');
@@ -15,23 +28,21 @@ export default function ComposableHeroes({ page, posts, archivePost, pageUrl }: 
       const archivePost = [] as any;
       const posts = [] as any;
 
-      getBanner?.characters?.forEach((superHero: { is_archived: any; }) => {
+      getBanner?.characters?.forEach((superHero: { is_archived: any }) => {
         if (superHero.is_archived) {
           archivePost.push(superHero);
         } else {
           posts.push(superHero);
         }
       });
-
     } catch (error) {
       console.error(error);
     }
   }
-  
+
   useEffect(() => {
     onEntryChange(() => fetchData());
   }, []);
-
 
   return (
     <>
@@ -52,7 +63,7 @@ export async function getServerSideProps(context: Context) {
     const archivePost = [] as any;
     const posts = [] as any;
 
-    page?.characters?.forEach((superHero: { is_archived: any; }) => {
+    page?.characters?.forEach((superHero: { is_archived: any }) => {
       if (superHero.is_archived) {
         archivePost.push(superHero);
       } else {
