@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class ErrorPage extends React.Component {
+class ErrorPage extends React.Component {
   render() {
     return (
       <div className="error-page">
@@ -10,3 +10,5 @@ export default class ErrorPage extends React.Component {
     );
   }
 }
+
+export default ErrorPage;

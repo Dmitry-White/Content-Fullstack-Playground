@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import RenderComponents from '../components/render-components';
 import { onEntryChange } from '../core';
-import { getPageRes } from '../helpers';
+import { getPageRes } from '../core/api';
 import { Props, Context } from '../types/pages';
 
-export default function Home(props: Props) {
+const Home = (props: Props) => {
   const { page, entryUrl } = props;
 
   const [getEntry, setEntry] = useState(page);
 
-  async function fetchData() {
+  const fetchData = useCallback(async () => {
     try {
       const entryRes = await getPageRes(entryUrl);
       if (!entryRes) throw new Error('Status code 404');
@@ -19,11 +19,11 @@ export default function Home(props: Props) {
     } catch (error) {
       console.error(error);
     }
-  }
+  }, [entryUrl]);
 
   useEffect(() => {
     onEntryChange(() => fetchData());
-  }, []);
+  }, [fetchData]);
 
   return getEntry ? (
     <RenderComponents
@@ -35,9 +35,9 @@ export default function Home(props: Props) {
   ) : (
     <Skeleton count={3} height={300} />
   );
-}
+};
 
-export async function getServerSideProps(context: Context) {
+const getServerSideProps = async (context: Context) => {
   try {
     const entryRes = await getPageRes(context.resolvedUrl);
     return {
@@ -49,4 +49,7 @@ export async function getServerSideProps(context: Context) {
   } catch (error) {
     return { notFound: true };
   }
-}
+};
+
+export default Home;
+export { getServerSideProps };

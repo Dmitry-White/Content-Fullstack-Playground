@@ -1,26 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import ArchiveRelative from '../../components/archive-relative';
 import BlogList from '../../components/blog-list';
 import RenderComponents from '../../components/render-components';
 import { onEntryChange } from '../../core';
-import { getPageRes, getBlogListRes } from '../../helpers';
+import { getPageRes, getBlogListRes } from '../../core/api';
 import { Page, PostPage, PageUrl, Context } from '../../types/pages';
 
-export default function Blog({
-  page,
-  posts,
-  archivePost,
-  pageUrl,
-}: {
+type BlogProps = {
   page: Page;
   posts: PostPage;
   archivePost: PostPage;
   pageUrl: PageUrl;
-}) {
+};
+
+const Blog = ({ page, posts, archivePost, pageUrl }: BlogProps) => {
   const [getBanner, setBanner] = useState(page);
-  async function fetchData() {
+
+  const fetchData = useCallback(async () => {
     try {
       const bannerRes = await getPageRes(pageUrl);
       if (!bannerRes) throw new Error('Status code 404');
@@ -28,11 +26,12 @@ export default function Blog({
     } catch (error) {
       console.error(error);
     }
-  }
+  }, [pageUrl]);
 
   useEffect(() => {
     onEntryChange(() => fetchData());
-  }, []);
+  }, [fetchData]);
+
   return (
     <>
       {getBanner.page_components ? (
@@ -69,15 +68,16 @@ export default function Blog({
       </div>
     </>
   );
-}
+};
 
-export async function getServerSideProps(context: Context) {
+const getServerSideProps = async (context: Context) => {
   try {
     const page = await getPageRes(context.resolvedUrl);
     const result: PostPage = await getBlogListRes();
 
     const archivePost = [] as any;
     const posts = [] as any;
+
     result.forEach((blogs) => {
       if (blogs.is_archived) {
         archivePost.push(blogs);
@@ -85,6 +85,7 @@ export async function getServerSideProps(context: Context) {
         posts.push(blogs);
       }
     });
+
     return {
       props: {
         pageUrl: context.resolvedUrl,
@@ -97,4 +98,7 @@ export async function getServerSideProps(context: Context) {
     console.error(error);
     return { notFound: true };
   }
-}
+};
+
+export default Blog;
+export { getServerSideProps };

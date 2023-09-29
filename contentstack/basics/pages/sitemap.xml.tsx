@@ -1,15 +1,15 @@
-import { getAllEntries, getBlogListRes } from '../helpers';
+import { getAllEntries, getBlogListRes } from '../core/api';
 import { Context, Pages, PostPage } from '../types/pages';
 
 const Sitemap = () => {
   return null;
 };
 
-export const getServerSideProps = async ({ res }: { res: Context }) => {
+const getServerSideProps = async ({ res }: { res: Context }) => {
   const baseUrl = process.env.NEXT_PUBLIC_HOSTED_URL || 'http://localhost:3000';
 
-  let pages: Pages = await getAllEntries();
-  let posts: PostPage = await getBlogListRes();
+  const pages: Pages = await getAllEntries();
+  const posts: PostPage = await getBlogListRes();
 
   const allPages = pages.map((page) => `${baseUrl}${page.url}`);
   const allPosts = posts.map((post) => `${baseUrl}${post.url}`);
@@ -42,3 +42,4 @@ export const getServerSideProps = async ({ res }: { res: Context }) => {
 };
 
 export default Sitemap;
+export { getServerSideProps };

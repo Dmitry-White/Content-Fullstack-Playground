@@ -1,26 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import GalleryReact from '../../components/gallery';
 import { onEntryChange } from '../../core';
 import {
   getAllComposableHeros,
   getComposableHeroHomeWorld,
-} from '../../helpers';
+} from '../../core/api';
 import { Page, PostPage, PageUrl, Context } from '../../types/pages';
 
-export default function ComposableHeroes({
-  page,
-  posts,
-  archivePost,
-  pageUrl,
-}: {
+type ComposableHeroesProps = {
   page: Page;
   posts: PostPage;
   archivePost: PostPage;
   pageUrl: PageUrl;
-}) {
+};
+
+const ComposableHeroes = ({
+  page,
+  posts,
+  archivePost,
+  pageUrl,
+}: ComposableHeroesProps) => {
   const [getBanner, setBanner] = useState(page);
-  async function fetchData() {
+
+  const fetchData = useCallback(async () => {
     try {
       const bannerRes = await getAllComposableHeros(pageUrl);
       if (!bannerRes) throw new Error('Status code 404');
@@ -38,11 +41,11 @@ export default function ComposableHeroes({
     } catch (error) {
       console.error(error);
     }
-  }
+  }, [pageUrl, getBanner?.characters]);
 
   useEffect(() => {
     onEntryChange(() => fetchData());
-  }, []);
+  }, [fetchData]);
 
   return (
     <>
@@ -55,9 +58,9 @@ export default function ComposableHeroes({
       />
     </>
   );
-}
+};
 
-export async function getServerSideProps(context: Context) {
+const getServerSideProps = async (context: Context) => {
   try {
     const page = await getAllComposableHeros(context.resolvedUrl);
     const archivePost = [] as any;
@@ -83,4 +86,7 @@ export async function getServerSideProps(context: Context) {
     console.error(error);
     return { notFound: true };
   }
-}
+};
+
+export default ComposableHeroes;
+export { getServerSideProps };

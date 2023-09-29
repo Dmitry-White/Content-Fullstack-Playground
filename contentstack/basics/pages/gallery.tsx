@@ -2,10 +2,15 @@ import React from 'react';
 
 import Gallery from '../components/gallery';
 import HeroBanner from '../components/hero-banner';
-import { getComposableHeroGallery, getSuperheroGalleryRes } from '../helpers';
+import { getComposableHeroGallery, getSuperheroGalleryRes } from '../core/api';
 import { Banner } from '../types/component';
 import { Posts } from '../types/layout';
-import { PostPage, Context } from '../types/pages';
+import { PostPage } from '../types/pages';
+
+type SuperHerosGalleryProps = {
+  gallery: Posts;
+  superHerogallery: Posts;
+};
 
 const renderTemplateSection = (
   switchData: any[],
@@ -46,13 +51,10 @@ const renderTemplateSection = (
   }
 };
 
-export default function SuperHerosGallery({
+const SuperHerosGallery = ({
   gallery,
   superHerogallery,
-}: {
-  gallery: Posts;
-  superHerogallery: Posts;
-}) {
+}: SuperHerosGalleryProps) => {
   return (
     <div>
       {gallery?.modular_blocks?.map((ele: any, index: any) =>
@@ -60,9 +62,9 @@ export default function SuperHerosGallery({
       )}
     </div>
   );
-}
+};
 
-export async function getServerSideProps(context: { resolvedUrl: any }) {
+const getServerSideProps = async (context: { resolvedUrl: any }) => {
   try {
     const gallery = await getComposableHeroGallery(context.resolvedUrl);
     const result: PostPage = await getSuperheroGalleryRes();
@@ -76,6 +78,7 @@ export async function getServerSideProps(context: { resolvedUrl: any }) {
         posts.push(SuperHerosGallery);
       }
     });
+
     return {
       props: {
         pageUrl: context.resolvedUrl,
@@ -87,4 +90,7 @@ export async function getServerSideProps(context: { resolvedUrl: any }) {
     console.error(error);
     return { notFound: true };
   }
-}
+};
+
+export default SuperHerosGallery;
+export { getServerSideProps };

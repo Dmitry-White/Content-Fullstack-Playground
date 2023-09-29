@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import RenderComponents from '../components/render-components';
 import { onEntryChange } from '../core';
-import { getPageRes } from '../helpers';
+import { getPageRes } from '../core/api';
 import { Props } from '../types/pages';
 
-export default function Page(props: Props) {
+const Page = (props: Props) => {
   const { page, entryUrl } = props;
   const [getEntry, setEntry] = useState(page);
 
-  async function fetchData() {
+  const fetchData = useCallback(async () => {
     try {
       const entryRes = await getPageRes(entryUrl);
       if (!entryRes) throw new Error('Status code 404');
@@ -18,11 +18,11 @@ export default function Page(props: Props) {
     } catch (error) {
       console.error(error);
     }
-  }
+  }, [entryUrl]);
 
   useEffect(() => {
     onEntryChange(() => fetchData());
-  }, [page]);
+  }, [page, fetchData]);
 
   return getEntry.page_components ? (
     <RenderComponents
@@ -34,15 +34,16 @@ export default function Page(props: Props) {
   ) : (
     <Skeleton count={3} height={300} />
   );
-}
+};
 
-export async function getServerSideProps({ params }: any) {
+const getServerSideProps = async ({ params }: any) => {
   try {
     const entryUrl = params.page.includes('/')
       ? params.page
       : `/${params.page}`;
     const entryRes = await getPageRes(entryUrl);
     if (!entryRes) throw new Error('404');
+
     return {
       props: {
         entryUrl: entryUrl,
@@ -52,4 +53,7 @@ export async function getServerSideProps({ params }: any) {
   } catch (error) {
     return { notFound: true };
   }
-}
+};
+
+export default Page;
+export { getServerSideProps };

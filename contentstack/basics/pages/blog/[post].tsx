@@ -1,25 +1,24 @@
 import parse from 'html-react-parser';
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import ArchiveRelative from '../../components/archive-relative';
 import RenderComponents from '../../components/render-components';
 import { onEntryChange } from '../../core';
-import { getPageRes, getBlogPostRes } from '../../helpers';
+import { getPageRes, getBlogPostRes } from '../../core/api';
 import { Page, BlogPosts, PageUrl } from '../../types/pages';
 
-export default function BlogPost({
-  blogPost,
-  page,
-  pageUrl,
-}: {
+type BlogPostProps = {
   blogPost: BlogPosts;
   page: Page;
   pageUrl: PageUrl;
-}) {
+};
+
+const BlogPost = ({ blogPost, page, pageUrl }: BlogPostProps) => {
   const [getPost, setPost] = useState({ banner: page, post: blogPost });
-  async function fetchData() {
+
+  const fetchData = useCallback(async () => {
     try {
       const entryRes = await getBlogPostRes(pageUrl);
       const bannerRes = await getPageRes('/blog');
@@ -28,11 +27,11 @@ export default function BlogPost({
     } catch (error) {
       console.error(error);
     }
-  }
+  }, [pageUrl]);
 
   useEffect(() => {
     onEntryChange(() => fetchData());
-  }, [blogPost]);
+  }, [blogPost, fetchData]);
 
   const { post, banner } = getPost;
   return (
@@ -99,8 +98,9 @@ export default function BlogPost({
       </div>
     </>
   );
-}
-export async function getServerSideProps({ params }: any) {
+};
+
+const getServerSideProps = async ({ params }: any) => {
   try {
     const page = await getPageRes('/blog');
     const posts = await getBlogPostRes(`/blog/${params.post}`);
@@ -117,4 +117,7 @@ export async function getServerSideProps({ params }: any) {
     console.error(error);
     return { notFound: true };
   }
-}
+};
+
+export default BlogPost;
+export { getServerSideProps };

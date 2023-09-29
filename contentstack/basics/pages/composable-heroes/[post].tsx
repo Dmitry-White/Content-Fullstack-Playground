@@ -1,21 +1,24 @@
 import parse from 'html-react-parser';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import { onEntryChange } from '../../core';
-import { getComposableHeroSingleRes } from '../../helpers';
+import { getComposableHeroSingleRes } from '../../core/api';
 import { Page, SuperHeroPosts, PageUrl } from '../../types/pages';
 
-export default function SuperHerosPost({
-  superHeroPost,
-  page,
-  pageUrl,
-}: {
+type SuperHerosPostProps = {
   superHeroPost: SuperHeroPosts;
   page: Page;
   pageUrl: PageUrl;
-}) {
+};
+
+const SuperHerosPost = ({
+  superHeroPost,
+  page,
+  pageUrl,
+}: SuperHerosPostProps) => {
   const [getPost, setPost] = useState(superHeroPost);
-  async function fetchData() {
+
+  const fetchData = useCallback(async () => {
     try {
       const entryRes = await getComposableHeroSingleRes(pageUrl);
       if (!entryRes) throw new Error('Status: ' + 404);
@@ -23,11 +26,11 @@ export default function SuperHerosPost({
     } catch (error) {
       console.error(error);
     }
-  }
+  }, [pageUrl]);
 
   useEffect(() => {
     onEntryChange(() => fetchData());
-  }, []);
+  }, [fetchData]);
 
   const postData = getPost;
   return (
@@ -127,8 +130,9 @@ export default function SuperHerosPost({
       </div>
     </>
   );
-}
-export async function getServerSideProps({ params }: any) {
+};
+
+const getServerSideProps = async ({ params }: any) => {
   try {
     const posts = await getComposableHeroSingleRes(
       `/composable-heroes/${params.post}`,
@@ -145,4 +149,7 @@ export async function getServerSideProps({ params }: any) {
     console.error(error);
     return { notFound: true };
   }
-}
+};
+
+export default SuperHerosPost;
+export { getServerSideProps };
