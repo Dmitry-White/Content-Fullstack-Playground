@@ -1,19 +1,18 @@
 import { addEditableTags } from '@contentstack/utils';
 import getConfig from 'next/config';
 
-import Stack from '../core';
-
-const axios = require('axios');
+import Stack from '.';
 
 const { publicRuntimeConfig } = getConfig();
+
 const envConfig = process.env.CONTENTSTACK_API_KEY
   ? process.env
   : publicRuntimeConfig;
 
 const liveEdit = envConfig.CONTENTSTACK_LIVE_EDIT_TAGS === 'true';
 
-export const getHeaderRes = async () => {
-  const response = await Stack.getEntry({
+const getHeaderRes = async () => {
+  const response: any = await Stack.getEntry({
     contentTypeUid: 'header',
     referenceFieldPath: ['navigation_menu.page_reference'],
     jsonRtePath: ['notification_bar.announcement_text'],
@@ -23,8 +22,8 @@ export const getHeaderRes = async () => {
   return response[0][0];
 };
 
-export const getFooterRes = async () => {
-  const response = await Stack.getEntry({
+const getFooterRes = async () => {
+  const response: any = await Stack.getEntry({
     contentTypeUid: 'footer',
     referenceFieldPath: undefined,
     jsonRtePath: ['copyright'],
@@ -33,19 +32,19 @@ export const getFooterRes = async () => {
   return response[0][0];
 };
 
-export const getAllEntries = async () => {
-  const response = await Stack.getEntry({
+const getAllEntries = async () => {
+  const response: any = await Stack.getEntry({
     contentTypeUid: 'page',
     referenceFieldPath: undefined,
     jsonRtePath: undefined,
   });
   liveEdit &&
-    response[0].forEach((entry) => addEditableTags(entry, 'page', true));
+    response[0].forEach((entry: any) => addEditableTags(entry, 'page', true));
   return response[0];
 };
 
-export const getPageRes = async (entryUrl) => {
-  const response = await Stack.getEntryByUrl({
+const getPageRes = async (entryUrl: string) => {
+  const response: any = await Stack.getEntryByUrl({
     contentTypeUid: 'page',
     entryUrl,
     referenceFieldPath: [
@@ -62,19 +61,21 @@ export const getPageRes = async (entryUrl) => {
   return response[0];
 };
 
-export const getBlogListRes = async () => {
-  const response = await Stack.getEntry({
+const getBlogListRes = async () => {
+  const response: any = await Stack.getEntry({
     contentTypeUid: 'blog_post',
     referenceFieldPath: ['author', 'related_post'],
     jsonRtePath: ['body'],
   });
   liveEdit &&
-    response[0].forEach((entry) => addEditableTags(entry, 'blog_post', true));
+    response[0].forEach((entry: any) =>
+      addEditableTags(entry, 'blog_post', true),
+    );
   return response[0];
 };
 
-export const getBlogPostRes = async (entryUrl) => {
-  const response = await Stack.getEntryByUrl({
+const getBlogPostRes = async (entryUrl: string) => {
+  const response: any = await Stack.getEntryByUrl({
     contentTypeUid: 'blog_post',
     entryUrl,
     referenceFieldPath: ['author', 'related_post'],
@@ -84,8 +85,8 @@ export const getBlogPostRes = async (entryUrl) => {
   return response[0];
 };
 
-export const getAllComposableHeros = async (entryUrl) => {
-  const response = await Stack.getEntryByUrl({
+const getAllComposableHeros = async (entryUrl: string) => {
+  const response: any = await Stack.getEntryByUrl({
     contentTypeUid: 'superhero_gallery_page',
     entryUrl,
     referenceFieldPath: ['characters'],
@@ -96,19 +97,27 @@ export const getAllComposableHeros = async (entryUrl) => {
   return response[0];
 };
 
-export const getComposableHeroHomeWorld = async () => {
-  const response = await Stack.getEntry({
+const getComposableHeroHomeWorld = async () => {
+  const response: any = await Stack.getEntry({
     contentTypeUid: 'character',
-    // referenceFieldPath: ["home_world"],
+    // referenceFieldPath: ['home_world'],
     jsonRtePath: ['description'],
+  } as {
+    contentTypeUid: any;
+    entryUrl: any;
+    referenceFieldPath: any;
+    jsonRtePath: any;
   });
+
   liveEdit &&
-    response[0].forEach((entry) => addEditableTags(entry, 'character', true));
+    response[0].forEach((entry: any) =>
+      addEditableTags(entry, 'character', true),
+    );
   return response;
 };
 
-export const getComposableHeroSingleRes = async (entryUrl) => {
-  const response = await Stack.getEntryByUrl({
+const getComposableHeroSingleRes = async (entryUrl: string) => {
+  const response: any = await Stack.getEntryByUrl({
     contentTypeUid: 'character',
     entryUrl,
     referenceFieldPath: ['home_world'],
@@ -119,8 +128,8 @@ export const getComposableHeroSingleRes = async (entryUrl) => {
   return response[0];
 };
 
-export const getComposableHeroGallery = async (entryUrl) => {
-  const response = await Stack.getEntryByUrl({
+const getComposableHeroGallery = async (entryUrl: string) => {
+  const response: any = await Stack.getEntryByUrl({
     contentTypeUid: 'superhero_landing_page',
     entryUrl,
     referenceFieldPath: ['modular_blocks.super_heroes_gallery.heroes'],
@@ -135,13 +144,33 @@ export const getComposableHeroGallery = async (entryUrl) => {
   return response[0];
 };
 
-export const getSuperheroGalleryRes = async () => {
-  const response = await Stack.getEntry({
+const getSuperheroGalleryRes = async () => {
+  const response: any = await Stack.getEntry({
     contentTypeUid: 'character',
     jsonRtePath: ['description'],
+  } as {
+    contentTypeUid: any;
+    referenceFieldPath: any;
+    jsonRtePath: any;
   });
 
   liveEdit &&
-    response[0].forEach((entry) => addEditableTags(entry, 'character', true));
+    response[0].forEach((entry: any) =>
+      addEditableTags(entry, 'character', true),
+    );
   return response;
+};
+
+export {
+  getHeaderRes,
+  getFooterRes,
+  getAllEntries,
+  getPageRes,
+  getBlogListRes,
+  getBlogPostRes,
+  getAllComposableHeros,
+  getComposableHeroHomeWorld,
+  getComposableHeroSingleRes,
+  getComposableHeroGallery,
+  getSuperheroGalleryRes,
 };
