@@ -22,7 +22,7 @@ type BannerProps = {
   banner: Banner;
 };
 
-export default function HeroBanner(props: BannerProps) {
+const HeroBanner = (props: BannerProps) => {
   const banner = props.banner;
 
   return (
@@ -77,4 +77,6 @@ export default function HeroBanner(props: BannerProps) {
       )}
     </div>
   );
-}
+};
+
+export default HeroBanner;

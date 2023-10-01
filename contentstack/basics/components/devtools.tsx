@@ -5,7 +5,7 @@ import Tooltip from './tool-tip';
 
 const DynamicReactJson = dynamic(import('react-json-view'), { ssr: false });
 
-function filterObject(inputObject: any) {
+const filterObject = (inputObject: any) => {
   const unWantedProps = [
     '_version',
     'ACL',
@@ -25,16 +25,16 @@ function filterObject(inputObject: any) {
     inputObject[key] = filterObject(inputObject[key]);
   }
   return inputObject;
-}
+};
 
 const DevTools = ({ response }: any) => {
   const filteredJson = filterObject(response);
   const [forceUpdate, setForceUpdate] = useState(0);
 
-  function copyObject(object: any) {
+  const copyObject = (object: any) => {
     navigator.clipboard.writeText(object);
     setForceUpdate(1);
-  }
+  };
 
   useEffect(() => {
     if (forceUpdate !== 0) {
@@ -116,4 +116,5 @@ const DevTools = ({ response }: any) => {
     </div>
   );
 };
+
 export default DevTools;

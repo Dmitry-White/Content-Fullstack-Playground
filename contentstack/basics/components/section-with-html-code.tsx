@@ -18,35 +18,30 @@ type ObjectProps = {
   $: AdditionalParam;
 };
 
-export default function SectionWithHtmlCode({
-  embedCode,
-}: {
-  embedCode: ObjectProps;
-}) {
-  if (embedCode.html_code_alignment === 'Left') {
-    return (
-      <div className="contact-page-section max-width">
-        <div className="contact-page-content">
-          {embedCode.title && (
-            <h1 {...(embedCode.$?.title as {})}>{embedCode.title}</h1>
-          )}
-          {typeof embedCode.description === 'string' && (
-            <div {...(embedCode.$?.description as {})}>
-              {parse(embedCode.description)}
-            </div>
-          )}
-        </div>
-        <div className="contact-page-form">
-          {typeof embedCode.html_code === 'string' && (
-            <div {...(embedCode.$?.html_code as {})}>
-              {parse(embedCode.html_code)}
-            </div>
-          )}
-        </div>
+const SectionWithHtmlCode = ({ embedCode }: { embedCode: ObjectProps }) => {
+  const renderLeft = () => (
+    <div className="contact-page-section max-width">
+      <div className="contact-page-content">
+        {embedCode.title && (
+          <h1 {...(embedCode.$?.title as {})}>{embedCode.title}</h1>
+        )}
+        {typeof embedCode.description === 'string' && (
+          <div {...(embedCode.$?.description as {})}>
+            {parse(embedCode.description)}
+          </div>
+        )}
       </div>
-    );
-  }
-  return (
+      <div className="contact-page-form">
+        {typeof embedCode.html_code === 'string' && (
+          <div {...(embedCode.$?.html_code as {})}>
+            {parse(embedCode.html_code)}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const renderRight = () => (
     <div className="contact-maps-section max-width">
       <div className="maps-details">
         {typeof embedCode.html_code === 'string' && (
@@ -65,4 +60,9 @@ export default function SectionWithHtmlCode({
       </div>
     </div>
   );
-}
+
+  return embedCode.html_code_alignment === 'Left'
+    ? renderLeft()
+    : renderRight();
+};
+export default SectionWithHtmlCode;

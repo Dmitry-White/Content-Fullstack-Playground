@@ -16,11 +16,7 @@ type BannerProps = {
   $: AdditionalParam;
 };
 
-export default function BlogBanner({
-  blogBanner,
-}: {
-  blogBanner: BannerProps;
-}) {
+const BlogBanner = ({ blogBanner }: { blogBanner: BannerProps }) => {
   return (
     <div
       className="blog-page-banner"
@@ -46,4 +42,6 @@ export default function BlogBanner({
       </div>
     </div>
   );
-}
+};
+
+export default BlogBanner;

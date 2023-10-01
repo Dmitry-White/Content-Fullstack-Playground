@@ -11,6 +11,15 @@ type SuperHerosPostProps = {
   pageUrl: PageUrl;
 };
 
+type HomeWorld = {
+  title: string | undefined;
+  image: {
+    url: string | undefined;
+    $: { url: {} };
+    filename: string;
+  };
+};
+
 const SuperHerosPost = ({
   superHeroPost,
   page,
@@ -33,6 +42,76 @@ const SuperHerosPost = ({
   }, [fetchData]);
 
   const postData = getPost;
+
+  const renderHomeWorldItem = (homeWorld: HomeWorld, indx: {}) => (
+    <div key={indx.toString()} className="mb-3">
+      {homeWorld?.title ? (
+        <p>
+          <strong>{homeWorld?.title}</strong>
+        </p>
+      ) : (
+        ''
+      )}
+      {homeWorld?.image?.url ? (
+        <img
+          className="superHero-logo-img img-fluid mb-3"
+          src={homeWorld?.image?.url}
+          alt={homeWorld?.image?.filename}
+          {...(homeWorld?.image.$?.url as {})}
+        />
+      ) : (
+        ''
+      )}
+      <hr />
+    </div>
+  );
+
+  const renderInfo = () => (
+    <div className="col-12">
+      {postData?.title ? (
+        <h2 className="mb-3" {...(postData.$?.title as {})}>
+          {postData?.title}
+        </h2>
+      ) : (
+        ''
+      )}
+      {postData?.description ? (
+        <div {...(postData.$?.description as {})}>
+          {parse(postData?.description)}
+        </div>
+      ) : (
+        ''
+      )}
+    </div>
+  );
+
+  const renderHomeWorld = () => (
+    <div className="col-12">
+      {postData?.home_world?.map(renderHomeWorldItem)}
+      {postData?.contact_info?.email ? (
+        <p {...postData?.contact_info.$?.email}>
+          <strong>Email :</strong> {postData?.contact_info?.email}
+        </p>
+      ) : (
+        ''
+      )}
+      {postData?.contact_info?.phone ? (
+        <p {...postData?.contact_info.$?.phone}>
+          <strong>Phone :</strong> {postData?.contact_info?.phone}
+        </p>
+      ) : (
+        ''
+      )}
+      {postData?.powers ? (
+        <p {...(postData.$?.powers as {})}>
+          <strong>Power :</strong> {postData?.powers}
+        </p>
+      ) : (
+        ''
+      )}
+    </div>
+  );
+
   return (
     <>
       <div className="container superHero-detail-container">
@@ -51,79 +130,8 @@ const SuperHerosPost = ({
           </div>
           <div className="col-md-12 col-lg-4 mt-5 ps-md-5">
             <div className="row">
-              <div className="col-12">
-                {postData?.title ? (
-                  <h2 className="mb-3" {...(postData.$?.title as {})}>
-                    {postData?.title}
-                  </h2>
-                ) : (
-                  ''
-                )}
-                {postData?.description ? (
-                  <p {...(postData.$?.description as {})}>
-                    {parse(postData?.description)}
-                  </p>
-                ) : (
-                  ''
-                )}
-              </div>
-              <div className="col-12">
-                {postData?.home_world?.map(
-                  (
-                    homeWorld: {
-                      title: string | undefined;
-                      image: {
-                        url: string | undefined;
-                        $: { url: {} };
-                        filename: string;
-                      };
-                    },
-                    indx: {},
-                  ) => (
-                    <div key={indx.toString()} className="mb-3">
-                      {homeWorld?.title ? (
-                        <p>
-                          <strong>{homeWorld?.title}</strong>
-                        </p>
-                      ) : (
-                        ''
-                      )}
-                      {homeWorld?.image?.url ? (
-                        <img
-                          className="superHero-logo-img img-fluid mb-3"
-                          src={homeWorld?.image?.url}
-                          alt={homeWorld?.image?.filename}
-                          {...(homeWorld?.image.$?.url as {})}
-                        />
-                      ) : (
-                        ''
-                      )}
-                      <hr />
-                    </div>
-                  ),
-                )}
-                {postData?.contact_info?.email ? (
-                  <p {...postData?.contact_info.$?.email}>
-                    <strong>Email :</strong> {postData?.contact_info?.email}
-                  </p>
-                ) : (
-                  ''
-                )}
-                {postData?.contact_info?.phone ? (
-                  <p {...postData?.contact_info.$?.phone}>
-                    <strong>Phone :</strong> {postData?.contact_info?.phone}
-                  </p>
-                ) : (
-                  ''
-                )}
-                {postData?.powers ? (
-                  <p {...(postData.$?.powers as {})}>
-                    <strong>Power :</strong> {postData?.powers}
-                  </p>
-                ) : (
-                  ''
-                )}
-              </div>
+              {renderInfo()}
+              {renderHomeWorld()}
             </div>
           </div>
         </div>

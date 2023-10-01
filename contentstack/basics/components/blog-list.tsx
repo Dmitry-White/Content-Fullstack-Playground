@@ -29,10 +29,14 @@ type BloglistProps = {
   $: AdditionalParam;
 };
 
-function BlogList({ bloglist }: { bloglist: BloglistProps }) {
-  let body: string = bloglist.body && bloglist.body.substr(0, 300);
+const BlogList = ({ bloglist }: { bloglist: BloglistProps }) => {
+  const body: string = bloglist.body && bloglist.body.substr(0, 300);
   const stringLength = body?.lastIndexOf(' ');
-  body = `${body?.substr(0, Math.min(body.length, stringLength))}...`;
+  const parsedBody = `${body?.substr(
+    0,
+    Math.min(body.length, stringLength),
+  )}...`;
+
   return (
     <div className="blog-list">
       {bloglist.featured_image && (
@@ -64,7 +68,7 @@ function BlogList({ bloglist }: { bloglist: BloglistProps }) {
             {bloglist.author[0].title}
           </strong>
         </p>
-        <div {...(bloglist.$?.body as {})}>{parse(body)}</div>
+        <div {...(bloglist.$?.body as {})}>{parse(parsedBody)}</div>
         {bloglist.url ? (
           <Link href={bloglist.url}>
             <a>
@@ -77,6 +81,6 @@ function BlogList({ bloglist }: { bloglist: BloglistProps }) {
       </div>
     </div>
   );
-}
+};
 
 export default BlogList;

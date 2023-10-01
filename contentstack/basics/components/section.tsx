@@ -22,8 +22,8 @@ type SectionProps = {
   $: AdditionalParam;
 };
 
-export default function Section({ section }: { section: SectionProps }) {
-  function contentSection(key: any) {
+const Section = ({ section }: { section: SectionProps }) => {
+  const contentSection = (key: any) => {
     return (
       <div className="home-content" key={key}>
         {section.title_h2 && (
@@ -46,9 +46,9 @@ export default function Section({ section }: { section: SectionProps }) {
         )}
       </div>
     );
-  }
+  };
 
-  function imageContent(key: any) {
+  const imageContent = (key: any) => {
     return (
       <img
         {...(section.image.$?.url as {})}
@@ -57,7 +57,8 @@ export default function Section({ section }: { section: SectionProps }) {
         key={key}
       />
     );
-  }
+  };
+
   return (
     <div className="home-advisor-section">
       {section.image_alignment === 'Left'
@@ -65,4 +66,6 @@ export default function Section({ section }: { section: SectionProps }) {
         : [contentSection('key-contentstection'), imageContent('key-image')]}
     </div>
   );
-}
+};
+
+export default Section;

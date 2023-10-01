@@ -1,26 +1,26 @@
 import parse from 'html-react-parser';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { onEntryChange } from '../core';
-import { getHeaderRes } from '../helpers';
+import { getHeaderRes } from '../core/api';
 import { HeaderProps, Entry, NavLinks } from '../types/layout';
 
 import Tooltip from './tool-tip';
 
-export default function Header({
+const Header = ({
   header,
   entries,
 }: {
   header: HeaderProps;
   entries: Entry;
-}) {
+}) => {
   const router = useRouter();
   const [getHeader, setHeader] = useState(header);
 
-  function buildNavigation(ent: Entry, hd: HeaderProps) {
+  const buildNavigation = (ent: Entry, hd: HeaderProps) => {
     let newHeader = { ...hd };
     if (ent.length !== newHeader.navigation_menu.length) {
       ent.forEach((entry) => {
@@ -39,9 +39,9 @@ export default function Header({
       });
     }
     return newHeader;
-  }
+  };
 
-  async function fetchData() {
+  const fetchData = useCallback(async () => {
     try {
       if (header && entries) {
         const headerRes = await getHeaderRes();
@@ -51,13 +51,13 @@ export default function Header({
     } catch (error) {
       console.error(error);
     }
-  }
+  }, [header, entries]);
 
   useEffect(() => {
     if (header && entries) {
       onEntryChange(() => fetchData());
     }
-  }, [header]);
+  }, [header, entries, fetchData]);
   const headerData = getHeader ? getHeader : undefined;
 
   return (
@@ -129,4 +129,6 @@ export default function Header({
       </div>
     </header>
   );
-}
+};
+
+export default Header;

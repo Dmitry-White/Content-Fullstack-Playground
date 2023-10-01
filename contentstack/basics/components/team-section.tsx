@@ -26,7 +26,27 @@ type TeamProps = {
   employees: [Employee];
 };
 
-export default function TeamSection({ ourTeam }: { ourTeam: TeamProps }) {
+const TeamSection = ({ ourTeam }: { ourTeam: TeamProps }) => {
+  const renderEmployee = (employee: Employee, index: number) => (
+    <div className="team-details" key={index}>
+      {employee.image && (
+        <img
+          alt={employee.image.filename}
+          src={employee.image.url}
+          {...(employee.image.$?.url as {})}
+        />
+      )}
+      <div className="team-details">
+        {employee.name && (
+          <h3 {...(employee.$?.name as {})}>{employee.name}</h3>
+        )}
+        {employee.designation && (
+          <p {...(employee.$?.designation as {})}>{employee.designation}</p>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <div className="about-team-section">
       <div className="team-head-section">
@@ -40,28 +60,10 @@ export default function TeamSection({ ourTeam }: { ourTeam: TeamProps }) {
         )}
       </div>
       <div className="team-content">
-        {ourTeam.employees?.map((employee, index) => (
-          <div className="team-details" key={index}>
-            {employee.image && (
-              <img
-                alt={employee.image.filename}
-                src={employee.image.url}
-                {...(employee.image.$?.url as {})}
-              />
-            )}
-            <div className="team-details">
-              {employee.name && (
-                <h3 {...(employee.$?.name as {})}>{employee.name}</h3>
-              )}
-              {employee.designation && (
-                <p {...(employee.$?.designation as {})}>
-                  {employee.designation}
-                </p>
-              )}
-            </div>
-          </div>
-        ))}
+        {ourTeam.employees?.map(renderEmployee)}
       </div>
     </div>
   );
-}
+};
+
+export default TeamSection;

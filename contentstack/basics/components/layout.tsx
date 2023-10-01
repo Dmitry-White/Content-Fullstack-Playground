@@ -15,15 +15,7 @@ import DevTools from './devtools';
 import Footer from './footer';
 import Header from './header';
 
-export default function Layout({
-  header,
-  footer,
-  page,
-  blogPost,
-  blogList,
-  entries,
-  children,
-}: {
+type LayoutProps = {
   header: HeaderProps;
   footer: FooterProps;
   page: PageProps;
@@ -31,14 +23,24 @@ export default function Layout({
   blogList: Posts;
   entries: Entry;
   children: ChilderenProps;
-}) {
+};
+
+const Layout = ({
+  header,
+  footer,
+  page,
+  blogPost,
+  blogList,
+  entries,
+  children,
+}: LayoutProps) => {
   const [getLayout, setLayout] = useState({ header, footer });
   const jsonObj: any = { header, footer };
   page && (jsonObj.page = page);
   blogPost && (jsonObj.blog_post = blogPost);
   blogList && (jsonObj.blog_post = blogList);
 
-  function buildNavigation(ent: Entry, hd: HeaderProps, ft: FooterProps) {
+  const buildNavigation = (ent: Entry, hd: HeaderProps, ft: FooterProps) => {
     let newHeader = { ...hd };
     let newFooter = { ...ft };
     if (ent.length !== newHeader.navigation_menu.length) {
@@ -68,14 +70,14 @@ export default function Layout({
       });
     }
     return [newHeader, newFooter];
-  }
+  };
 
   useEffect(() => {
     if (footer && header && entries) {
       const [newHeader, newFooter] = buildNavigation(entries, header, footer);
       setLayout({ header: newHeader, footer: newFooter });
     }
-  }, [header, footer]);
+  }, [header, footer, entries]);
 
   return (
     <>
@@ -89,4 +91,6 @@ export default function Layout({
       {footer ? <Footer footer={getLayout.footer} entries={entries} /> : ''}
     </>
   );
-}
+};
+
+export default Layout;

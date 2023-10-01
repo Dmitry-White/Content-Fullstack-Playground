@@ -38,8 +38,32 @@ type FeaturedBlogProps = {
   fromBlog: FeaturedBlogData;
 };
 
-export default function BlogSection(props: FeaturedBlogProps) {
+const BlogSection = (props: FeaturedBlogProps) => {
   const fromBlog = props.fromBlog;
+
+  const renderFeaturedBlog = (blog: FeaturedBlog, index: number) => (
+    <div className="featured-blog" key={index}>
+      {blog.featured_image && (
+        <img
+          {...(blog.featured_image.$?.url as {})}
+          src={blog.featured_image.url}
+          alt={blog.featured_image.filename}
+          className="blog-post-img"
+        />
+      )}
+      <div className="featured-content">
+        {blog.title && <h3 {...blog.$?.title}>{blog.title}</h3>}
+        {typeof blog.body === 'string' && (
+          <div>{parse(blog.body.slice(0, 300))}</div>
+        )}
+        {blog.url && (
+          <Link href={blog.url} passHref>
+            <a className="blogpost-readmore">{'Read More -->'}</a>
+          </Link>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <div className="community-section">
@@ -59,30 +83,10 @@ export default function BlogSection(props: FeaturedBlogProps) {
         )}
       </div>
       <div className="home-featured-blogs">
-        {fromBlog.featured_blogs.map((blog, index) => (
-          <div className="featured-blog" key={index}>
-            {blog.featured_image && (
-              <img
-                {...(blog.featured_image.$?.url as {})}
-                src={blog.featured_image.url}
-                alt={blog.featured_image.filename}
-                className="blog-post-img"
-              />
-            )}
-            <div className="featured-content">
-              {blog.title && <h3 {...blog.$?.title}>{blog.title}</h3>}
-              {typeof blog.body === 'string' && (
-                <div>{parse(blog.body.slice(0, 300))}</div>
-              )}
-              {blog.url && (
-                <Link href={blog.url} passHref>
-                  <a className="blogpost-readmore">{'Read More -->'}</a>
-                </Link>
-              )}
-            </div>
-          </div>
-        ))}
+        {fromBlog.featured_blogs.map(renderFeaturedBlog)}
       </div>
     </div>
   );
-}
+};
+
+export default BlogSection;

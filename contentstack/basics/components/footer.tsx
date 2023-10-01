@@ -1,22 +1,22 @@
 import parse from 'html-react-parser';
 import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { onEntryChange } from '../core';
-import { getFooterRes } from '../helpers';
+import { getFooterRes } from '../core/api';
 import { FooterProps, Entry, Links } from '../types/layout';
 
-export default function Footer({
+const Footer = ({
   footer,
   entries,
 }: {
   footer: FooterProps;
   entries: Entry;
-}) {
+}) => {
   const [getFooter, setFooter] = useState(footer);
 
-  function buildNavigation(ent: Entry, ft: FooterProps) {
+  const buildNavigation = (ent: Entry, ft: FooterProps) => {
     let newFooter = { ...ft };
     if (ent.length !== newFooter.navigation.link.length) {
       ent.forEach((entry) => {
@@ -33,9 +33,9 @@ export default function Footer({
       });
     }
     return newFooter;
-  }
+  };
 
-  async function fetchData() {
+  const fetchData = useCallback(async () => {
     try {
       if (footer && entries) {
         const footerRes = await getFooterRes();
@@ -45,11 +45,33 @@ export default function Footer({
     } catch (error) {
       console.error(error);
     }
-  }
+  }, [footer, entries]);
 
   useEffect(() => {
     onEntryChange(() => fetchData());
-  }, [footer]);
+  }, [footer, fetchData]);
+
+  const renderShare = (social: any) => (
+    <a
+      href={social.link.href}
+      title={social.link.title}
+      key={social.link.title}
+    >
+      {social.icon && (
+        <img
+          src={social.icon.url}
+          alt={social.link.title}
+          {...(social.icon.$?.url as {})}
+        />
+      )}
+    </a>
+  );
+
+  const renderNavLink = (menu: any) => (
+    <li className="footer-nav-li" key={menu.title} {...menu.$?.title}>
+      <Link href={menu.href}>{menu.title}</Link>
+    </li>
+  );
 
   const footerData = getFooter ? getFooter : undefined;
 
@@ -77,15 +99,7 @@ export default function Footer({
           <nav>
             <ul className="nav-ul">
               {footerData ? (
-                footerData.navigation.link.map((menu) => (
-                  <li
-                    className="footer-nav-li"
-                    key={menu.title}
-                    {...menu.$?.title}
-                  >
-                    <Link href={menu.href}>{menu.title}</Link>
-                  </li>
-                ))
+                footerData.navigation.link.map(renderNavLink)
               ) : (
                 <Skeleton width={300} />
               )}
@@ -95,21 +109,7 @@ export default function Footer({
         <div className="col-quarter social-link">
           <div className="social-nav">
             {footerData ? (
-              footerData.social?.social_share.map((social) => (
-                <a
-                  href={social.link.href}
-                  title={social.link.title}
-                  key={social.link.title}
-                >
-                  {social.icon && (
-                    <img
-                      src={social.icon.url}
-                      alt={social.link.title}
-                      {...(social.icon.$?.url as {})}
-                    />
-                  )}
-                </a>
-              ))
+              footerData.social?.social_share.map(renderShare)
             ) : (
               <Skeleton width={200} />
             )}
@@ -127,4 +127,6 @@ export default function Footer({
       )}
     </footer>
   );
-}
+};
+
+export default Footer;

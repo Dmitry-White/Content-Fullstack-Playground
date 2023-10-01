@@ -32,11 +32,11 @@ type BucketProps = {
   $: AdditionalParam;
 };
 
-export default function AboutSectionBucket({
+const AboutSectionBucket = ({
   sectionWithBuckets,
 }: {
   sectionWithBuckets: BucketProps;
-}) {
+}) => {
   function bucketContent(bucket: Bucket, index: number) {
     return (
       <div className="mission-content-section" key={index}>
@@ -87,4 +87,6 @@ export default function AboutSectionBucket({
       </div>
     </div>
   );
-}
+};
+
+export default AboutSectionBucket;
