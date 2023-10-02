@@ -1,3 +1,4 @@
+import ImageNext from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -50,11 +51,13 @@ const Section = ({ section }: { section: SectionProps }) => {
 
   const imageContent = (key: any) => {
     return (
-      <img
+      <ImageNext
         {...(section.image.$?.url as {})}
         src={section.image.url}
         alt={section.image.filename}
         key={key}
+        width={540}
+        height={400}
       />
     );
   };

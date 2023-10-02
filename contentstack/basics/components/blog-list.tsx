@@ -1,5 +1,6 @@
 import parse from 'html-react-parser';
 import moment from 'moment';
+import ImageNext from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -42,11 +43,13 @@ const BlogList = ({ bloglist }: { bloglist: BloglistProps }) => {
       {bloglist.featured_image && (
         <Link href={bloglist.url}>
           <a>
-            <img
+            <ImageNext
               className="blog-list-img"
               src={bloglist.featured_image.url}
               alt="blog img"
               {...(bloglist.featured_image.$?.url as {})}
+              width={230}
+              height={290}
             />
           </a>
         </Link>

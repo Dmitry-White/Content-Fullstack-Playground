@@ -1,4 +1,5 @@
 import parse from 'html-react-parser';
+import ImageNext from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -33,10 +34,12 @@ const SectionBucket = ({ section }: { section: BucketProps }) => {
   const renderBucket = (bucket: Buckets, index: number) => (
     <div className="content-section" key={index}>
       {bucket.icon && (
-        <img
+        <ImageNext
           {...(bucket.icon.$?.url as {})}
           src={bucket.icon.url}
           alt="bucket icon"
+          width={40}
+          height={40}
         />
       )}
 

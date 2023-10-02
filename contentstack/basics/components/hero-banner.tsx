@@ -1,3 +1,4 @@
+import ImageNext from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -67,10 +68,12 @@ const HeroBanner = (props: BannerProps) => {
         )}
       </div>
       {banner.banner_image ? (
-        <img
+        <ImageNext
           alt={banner.banner_image.filename}
           src={banner.banner_image.url}
           {...(banner.banner_image.$?.url as {})}
+          width={540}
+          height={410}
         />
       ) : (
         ''

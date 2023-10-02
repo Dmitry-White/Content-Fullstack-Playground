@@ -1,4 +1,5 @@
 import parse from 'html-react-parser';
+import ImageNext from 'next/image';
 import React, { useState } from 'react';
 
 type GalleryReactProps = {
@@ -83,13 +84,15 @@ const GalleryReact = ({
           <div className="featured-gallery">
             <a href={url} className="test">
               {image?.url ? (
-                <img
+                <ImageNext
                   className={`img-fluid ${
                     showFilter === false ? 'large-img' : ''
                   }`}
                   src={image?.url}
                   alt={image?.filename}
                   {...(image.$?.url as {})}
+                  width={320}
+                  height={320}
                 />
               ) : (
                 ''

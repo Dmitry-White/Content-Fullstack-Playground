@@ -1,4 +1,5 @@
 import parse from 'html-react-parser';
+import ImageNext from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect, useCallback } from 'react';
 import Skeleton from 'react-loading-skeleton';
@@ -58,10 +59,12 @@ const Footer = ({
       key={social.link.title}
     >
       {social.icon && (
-        <img
+        <ImageNext
           src={social.icon.url}
           alt={social.link.title}
           {...(social.icon.$?.url as {})}
+          width={20}
+          height={20}
         />
       )}
     </a>
@@ -82,12 +85,14 @@ const Footer = ({
           {footerData && footerData.logo ? (
             <Link href="/">
               <a className="logo-tag">
-                <img
+                <ImageNext
+                  className="logo footer-logo"
                   src={footerData.logo.url}
                   alt={footerData.title}
                   title={footerData.title}
                   {...(footer.logo.$?.url as {})}
-                  className="logo footer-logo"
+                  width={130}
+                  height={30}
                 />
               </a>
             </Link>

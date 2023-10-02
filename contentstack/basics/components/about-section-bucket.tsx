@@ -1,4 +1,5 @@
 import parse from 'html-react-parser';
+import ImageNext from 'next/image';
 import React from 'react';
 
 import { Action, Image } from '../types/action';
@@ -41,11 +42,13 @@ const AboutSectionBucket = ({
     return (
       <div className="mission-content-section" key={index}>
         {bucket.icon && (
-          <img
+          <ImageNext
             className="mission-icon"
             {...(bucket.icon.$?.url as {})}
             src={bucket.icon.url}
             alt="art work"
+            width={50}
+            height={50}
           />
         )}
 

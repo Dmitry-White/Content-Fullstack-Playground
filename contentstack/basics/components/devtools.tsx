@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import ImageNext from 'next/image';
 import React, { useState, useEffect } from 'react';
 
 import Tooltip from './tool-tip';
@@ -74,7 +75,12 @@ const DevTools = ({ response }: any) => {
                 delay={200}
                 status={forceUpdate}
               >
-                <img src="/copy.svg" alt="copy icon" />
+                <ImageNext
+                  src="/copy.svg"
+                  alt="copy icon"
+                  width={100}
+                  height={100}
+                />
               </Tooltip>
             </span>
             <button

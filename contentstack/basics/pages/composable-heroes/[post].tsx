@@ -1,4 +1,5 @@
 import parse from 'html-react-parser';
+import ImageNext from 'next/image';
 import React, { useState, useEffect, useCallback } from 'react';
 
 import { onEntryChange } from '../../core';
@@ -53,11 +54,13 @@ const SuperHerosPost = ({
         ''
       )}
       {homeWorld?.image?.url ? (
-        <img
+        <ImageNext
           className="superHero-logo-img img-fluid mb-3"
           src={homeWorld?.image?.url}
           alt={homeWorld?.image?.filename}
           {...(homeWorld?.image.$?.url as {})}
+          width={150}
+          height={150}
         />
       ) : (
         ''
@@ -118,11 +121,13 @@ const SuperHerosPost = ({
         <div className="row">
           <div className="col-md-12 col-lg-8">
             {postData?.image?.url ? (
-              <img
+              <ImageNext
                 className="img-fluid"
                 src={postData?.image?.url + '?height=800'}
                 alt={postData?.image?.filename}
                 {...(postData?.image.$?.url as {})}
+                width={740}
+                height={740}
               />
             ) : (
               ''

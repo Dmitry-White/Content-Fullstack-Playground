@@ -19,6 +19,15 @@ const config = {
     CONTENTSTACK_LIVE_EDIT_TAGS:
       process.env.CONTENTSTACK_LIVE_EDIT_TAGS || 'false',
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'eu-images.contentstack.com',
+        port: '',
+      },
+    ],
+  },
 };
 module.exports =
   process.env.NODE_ENV === 'development' ? config : withPWA(config);

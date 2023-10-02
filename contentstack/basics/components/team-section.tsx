@@ -1,3 +1,4 @@
+import ImageNext from 'next/image';
 import React from 'react';
 
 import { Image } from '../types/action';
@@ -30,10 +31,12 @@ const TeamSection = ({ ourTeam }: { ourTeam: TeamProps }) => {
   const renderEmployee = (employee: Employee, index: number) => (
     <div className="team-details" key={index}>
       {employee.image && (
-        <img
-          alt={employee.image.filename}
+        <ImageNext
           src={employee.image.url}
+          alt={employee.image.filename}
           {...(employee.image.$?.url as {})}
+          width={280}
+          height={360}
         />
       )}
       <div className="team-details">

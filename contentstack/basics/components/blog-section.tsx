@@ -1,4 +1,5 @@
 import parse from 'html-react-parser';
+import ImageNext from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -44,11 +45,13 @@ const BlogSection = (props: FeaturedBlogProps) => {
   const renderFeaturedBlog = (blog: FeaturedBlog, index: number) => (
     <div className="featured-blog" key={index}>
       {blog.featured_image && (
-        <img
+        <ImageNext
+          className="blog-post-img"
           {...(blog.featured_image.$?.url as {})}
           src={blog.featured_image.url}
           alt={blog.featured_image.filename}
-          className="blog-post-img"
+          width={530}
+          height={270}
         />
       )}
       <div className="featured-content">

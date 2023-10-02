@@ -1,4 +1,5 @@
 import parse from 'html-react-parser';
+import ImageNext from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect, useCallback } from 'react';
@@ -78,12 +79,14 @@ const Header = ({
           {headerData ? (
             <Link href="/">
               <a className="logo-tag" title="Contentstack">
-                <img
+                <ImageNext
                   className="logo"
                   src={headerData.logo.url}
                   alt={headerData.title}
                   title={headerData.title}
                   {...(headerData.logo.$?.url as {})}
+                  width={130}
+                  height={30}
                 />
               </a>
             </Link>
@@ -122,7 +125,7 @@ const Header = ({
         {/* <div className='json-preview'>
           <Tooltip content='JSON Preview' direction='top' dynamic={false} delay={200} status={0}>
             <span data-bs-toggle='modal' data-bs-target='#staticBackdrop'>
-              <img src='/json.svg' alt='JSON Preview icon' />
+              <ImageNext src='/json.svg' alt='JSON Preview icon' width={10} height={10} />
             </span>
           </Tooltip>
         </div> */}
