@@ -32,7 +32,7 @@ const ArchiveRelative = ({ blogs }: BlogListProps) => {
     </Link>
   );
 
-  return blogs?.map(renderBlog);
+  return <>{blogs?.map(renderBlog)}</>;
 };
 
 export default ArchiveRelative;

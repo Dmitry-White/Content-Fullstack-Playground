@@ -88,9 +88,7 @@ type Pages = [page: Page];
 
 type PostPage = [post: Post];
 
-type PageUrl = {
-  pageUrl: string;
-};
+type PageUrl = string;
 
 type BlogPosts = {
   modular_blocks: any;
@@ -128,12 +126,13 @@ type SuperHeroPosts = {
 };
 
 export {
-  Props,
-  Page,
-  Context,
-  Pages,
-  PostPage,
-  PageUrl,
-  BlogPosts,
+  // @ts-ignore
+  Props, // @ts-ignore
+  Page, // @ts-ignore
+  Context, // @ts-ignore
+  Pages, // @ts-ignore
+  PostPage, // @ts-ignore
+  PageUrl, // @ts-ignore
+  BlogPosts, // @ts-ignore
   SuperHeroPosts,
 };

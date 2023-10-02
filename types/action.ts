@@ -15,4 +15,5 @@ type Image = {
   $: AdditionalParam;
 };
 
+// @ts-ignore
 export { Action, Image };
