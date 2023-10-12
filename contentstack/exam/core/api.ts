@@ -42,19 +42,19 @@ const getEntry = async ({
  *fetches specific entry from a content-type
  *
  * @param {* content-type uid} contentTypeUid
- * @param {* url for entry to be fetched} entryUrl
+ * @param {* url for entry to be fetched} slug
  * @param {* reference field name} referenceFieldPath
  * @param {* Json RTE path} jsonRtePath
  * @returns
  */
-const getEntryByUrl = async ({
+const getEntryBySlug = async ({
   contentTypeUid,
-  entryUrl,
+  slug,
   referenceFieldPath,
   jsonRtePath,
 }: {
   contentTypeUid: any;
-  entryUrl: any;
+  slug: string;
   referenceFieldPath: any;
   jsonRtePath: any;
 }) => {
@@ -64,7 +64,7 @@ const getEntryByUrl = async ({
     query.includeReference(referenceFieldPath);
   }
 
-  const result = await query.toJSON().where('url', entryUrl).find();
+  const result = await query.toJSON().where('slug', slug).find();
 
   jsonRtePath &&
     jsonToHTML({
@@ -82,7 +82,7 @@ const getHomePage = async () => {
     referenceFieldPath: [
       'sections.product_section.product_section.products.product.images.image',
     ],
-    jsonRtePath: undefined,
+    jsonRtePath: null,
   });
 
   liveEdit &&
@@ -90,4 +90,29 @@ const getHomePage = async () => {
   return response[0];
 };
 
-export { getEntry, getEntryByUrl, getHomePage };
+const getProducts = async () => {
+  const response: any = await getEntry({
+    contentTypeUid: 'product',
+    referenceFieldPath: ['images.image'],
+    jsonRtePath: null,
+  });
+
+  liveEdit &&
+    response[0].forEach((entry: any) => addEditableTags(entry, 'page', true));
+  return response[0];
+};
+
+const getProductPage = async (slug: string) => {
+  const response: any = await getEntryBySlug({
+    contentTypeUid: 'product',
+    slug,
+    referenceFieldPath: ['images.image'],
+    jsonRtePath: null,
+  });
+
+  liveEdit &&
+    response.forEach((entry: any) => addEditableTags(entry, 'product', true));
+  return response[0];
+};
+
+export { getEntry, getEntryBySlug, getHomePage, getProducts, getProductPage };
