@@ -3,20 +3,21 @@ import _ from 'lodash';
 import ProductCardComponent from './ProductCardComponent';
 
 const ProductSection = (props) => {
-  const fields = _.get(props, 'fields');
-  const title = _.get(fields, 'title');
-  const products = _.get(fields, 'products');
+  const section = _.get(props, 'section');
+
+  const title = _.get(section, 'title');
+  const products = _.get(section, 'products');
 
   const renderItem = (item, index) => {
-    const productId = _.get(item, 'sys.id');
-    const fields = _.get(item, 'fields');
+    const productId = _.get(item, '_metadata.uid');
+    const product = _.get(item, 'product[0]');
 
     return (
       <ProductCardComponent
-        productIndex={index}
         key={productId}
         id={productId}
-        fields={fields}
+        productIndex={index}
+        product={product}
       />
     );
   };
@@ -24,7 +25,7 @@ const ProductSection = (props) => {
   const renderList = (list) =>
     Array.isArray(list) ? list.map(renderItem) : '';
 
-  if (!fields) {
+  if (!products) {
     return '';
   }
 

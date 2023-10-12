@@ -79,9 +79,12 @@ const getEntryByUrl = async ({
 const getHomePage = async () => {
   const response: any = await getEntry({
     contentTypeUid: 'landing_page',
-    referenceFieldPath: undefined,
+    referenceFieldPath: [
+      'sections.product_section.product_section.products.product.images.image',
+    ],
     jsonRtePath: undefined,
   });
+
   liveEdit &&
     response[0].forEach((entry: any) => addEditableTags(entry, 'page', true));
   return response[0];

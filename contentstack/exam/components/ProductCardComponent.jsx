@@ -6,7 +6,9 @@ import ImageComponent from './ImageComponent';
 
 const ProductCardComponent = (props) => {
   const productIndex = _.get(props, 'productIndex');
-  const fields = _.get(props, 'fields');
+  const product = _.get(props, 'product');
+
+  const image = _.get(product, 'images[0]');
 
   const router = useRouter();
 
@@ -19,7 +21,7 @@ const ProductCardComponent = (props) => {
     return () => {};
   }, [productIndex]);
 
-  if (!fields) {
+  if (!product) {
     return '';
   }
 
@@ -31,17 +33,17 @@ const ProductCardComponent = (props) => {
             indexIsOdd ? 'order-last' : ''
           }`}
         >
-          <ImageComponent image={fields.image} />
+          <ImageComponent image={image} />
         </div>
         <div className="w-1/2  bg-gelb p-10 flex flex-col items-center">
           <div className=" h-1/3"></div>
           <div className="flex flex-col space-y-4">
-            <h2 className="text-xl font-bold ">{fields.title}</h2>
+            <h2 className="text-xl font-bold ">{product.title}</h2>
 
-            <div className="">{'Placeholder'}</div>
-            <p className=" text-xl ">${fields.price}</p>
+            <div className="">{'Placeholder Description'}</div>
+            <p className=" text-xl ">${product.price}</p>
             <button
-              onClick={() => router.push(`/products/${fields.slug}`)}
+              onClick={() => router.push(`/products/${product.slug}`)}
               className=" bg-black text-white hover:bg-neuter rounded shadow-md"
             >
               BUY
