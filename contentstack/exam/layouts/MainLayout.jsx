@@ -25,7 +25,7 @@ const MainLayout = (props) => {
   return (
     <>
       <Head>
-        <title>Jumpstart Shop</title>
+        <title>Exam Shop</title>
       </Head>
 
       <Header />
