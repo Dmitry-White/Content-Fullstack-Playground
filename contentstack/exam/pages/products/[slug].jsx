@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import Head from 'next/head';
+import parse from 'html-react-parser';
 
 import ImageComponent from '../../components/ImageComponent';
 import { getProductPage, getProducts } from '../../core/api';
@@ -41,6 +42,7 @@ const ProductPage = (props) => {
   const title = _.get(product, 'title');
   const price = _.get(product, 'price');
   const image = _.get(product, 'images[0]');
+  const description = _.get(product, 'description');
 
   return (
     <>
@@ -53,7 +55,7 @@ const ProductPage = (props) => {
         </div>
         <h1 className="text-3xl mb-4 font-bold">{title}</h1>
         <p className=" text-xl text-blau">${price}</p>
-        <div className="">{'Description Placeholder'}</div>
+        <div className="">{parse(description)}</div>
       </div>
     </>
   );

@@ -5,7 +5,6 @@ module.exports = {
       {
         protocol: 'https',
         hostname: 'eu-images.contentstack.com',
-        port: '',
       },
     ],
   },

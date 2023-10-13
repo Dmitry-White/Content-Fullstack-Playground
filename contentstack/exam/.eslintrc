@@ -7,7 +7,11 @@
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
+  "extends": [
+    "next/babel",
+    "next/core-web-vitals",
+    "plugin:prettier/recommended"
+  ],
   "rules": {
     "no-plusplus": [1, { "allowForLoopAfterthoughts": true }],
     "no-unused-expressions": [
