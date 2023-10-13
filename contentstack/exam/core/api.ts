@@ -1,6 +1,8 @@
 import { addEditableTags, jsonToHTML } from '@contentstack/utils';
 
-import { getRenderOptions, liveEdit } from './env';
+import richtextRenderOptions from '../components/richtextRenderOptions';
+
+import { liveEdit } from './env';
 import { stack } from './stack';
 
 /**
@@ -26,13 +28,17 @@ const getEntry = async ({
     query.includeReference(referenceFieldPath);
   }
 
+  if (jsonRtePath) {
+    query.includeEmbeddedItems();
+  }
+
   const result = await query.toJSON().find();
 
   jsonRtePath &&
     jsonToHTML({
       entry: result,
       paths: jsonRtePath,
-      renderOption: getRenderOptions(),
+      renderOption: richtextRenderOptions,
     });
 
   return result;
@@ -64,13 +70,17 @@ const getEntryBySlug = async ({
     query.includeReference(referenceFieldPath);
   }
 
+  if (jsonRtePath) {
+    query.includeEmbeddedItems();
+  }
+
   const result = await query.toJSON().where('slug', slug).find();
 
   jsonRtePath &&
     jsonToHTML({
       entry: result,
       paths: jsonRtePath,
-      renderOption: getRenderOptions(),
+      renderOption: richtextRenderOptions,
     });
 
   return result[0];
@@ -82,7 +92,9 @@ const getHomePage = async () => {
     referenceFieldPath: [
       'sections.product_section.product_section.products.product.images.image',
     ],
-    jsonRtePath: null,
+    jsonRtePath: [
+      'sections.product_section.product_section.products.product.description',
+    ],
   });
 
   liveEdit &&
@@ -93,7 +105,7 @@ const getHomePage = async () => {
 const getProducts = async () => {
   const response: any = await getEntry({
     contentTypeUid: 'product',
-    referenceFieldPath: ['images.image'],
+    referenceFieldPath: null,
     jsonRtePath: null,
   });
 
@@ -107,7 +119,7 @@ const getProductPage = async (slug: string) => {
     contentTypeUid: 'product',
     slug,
     referenceFieldPath: ['images.image'],
-    jsonRtePath: null,
+    jsonRtePath: ['description'],
   });
 
   liveEdit &&

@@ -31,14 +31,4 @@ const getPreviewOptions = (envConfig: any, stackSdk: any) => ({
   ssr: false,
 });
 
-const getRenderOptions = () => ({
-  span: (node: any, next: any) => next(node.children),
-});
-
-export {
-  envConfig,
-  liveEdit,
-  getStackOptions,
-  getPreviewOptions,
-  getRenderOptions,
-};
+export { envConfig, liveEdit, getStackOptions, getPreviewOptions };
