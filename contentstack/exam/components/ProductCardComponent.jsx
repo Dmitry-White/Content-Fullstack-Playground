@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import parse from 'html-react-parser';
 
 import ImageComponent from './ImageComponent';
 
@@ -9,6 +10,7 @@ const ProductCardComponent = (props) => {
   const product = _.get(props, 'product');
 
   const image = _.get(product, 'images[0]');
+  const description = _.get(product, 'description');
 
   const router = useRouter();
 
@@ -40,7 +42,7 @@ const ProductCardComponent = (props) => {
           <div className="flex flex-col space-y-4">
             <h2 className="text-xl font-bold ">{product.title}</h2>
 
-            <div className="">{'Placeholder Description'}</div>
+            <div className="">{parse(description)}</div>
             <p className=" text-xl ">${product.price}</p>
             <button
               onClick={() => router.push(`/products/${product.slug}`)}
